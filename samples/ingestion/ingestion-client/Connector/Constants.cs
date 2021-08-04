@@ -11,6 +11,12 @@ namespace Connector.Constants
 
         public const int DefaultRetryLimit = 4;
 
+        public const int MaxInitialRetryDelayInMinutes = 120;
+
+        public const int DefaultInitialRetryDelayInMinutes = 2;
+
+        public const int DefaultMaxRetryDelayInMinutes = 120;
+
         public const int MaxInitialPollingDelayInMinutes = 120;
 
         public const int DefaultInitialPollingDelayInMinutes = 2;

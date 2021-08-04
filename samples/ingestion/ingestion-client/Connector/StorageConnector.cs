@@ -37,6 +37,21 @@ namespace Connector
             BlobServiceClient = new BlobServiceClient(storageConnectionString);
         }
 
+        public static (string containerName, string fileName) GetContainerAndFileNameFromUri(Uri fileUri)
+        {
+            if (fileUri == null)
+            {
+                throw new ArgumentNullException(nameof(fileUri));
+            }
+
+            var pathParts = HttpUtility.UrlDecode(fileUri.AbsolutePath).Split('/').ToList();
+            var cleanedPathParts = pathParts.SkipWhile(part => string.IsNullOrEmpty(part) || part.Equals("/", StringComparison.OrdinalIgnoreCase));
+
+            var fileName = string.Join('/', cleanedPathParts.Skip(1));
+            var containerName = cleanedPathParts.FirstOrDefault();
+            return (containerName, fileName);
+        }
+
         public static string GetFileNameFromUri(Uri fileUri)
         {
             if (fileUri == null)
@@ -104,7 +119,7 @@ namespace Connector
             return data;
         }
 
-        public async Task<byte[]> DownloadFileFromContainer(string containerName, string blobName)
+        public async Task<byte[]> DownloadFileFromContainerAsync(string containerName, string blobName)
         {
             var containerClient = BlobServiceClient.GetBlobContainerClient(containerName);
 
@@ -144,6 +159,20 @@ namespace Connector
 
             using var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
             await blockBlobClient.UploadAsync(stream, overwrite: true).ConfigureAwait(false);
+        }
+
+        public async Task DeleteFileAsync(string containerName, string fileName, ILogger log)
+        {
+            log.LogInformation($"Start deleting file {fileName} from container {containerName}.");
+            var blockBlobClient = BlobServiceClient.GetBlobContainerClient(containerName).GetBlobClient(fileName);
+
+            if (!await blockBlobClient.ExistsAsync().ConfigureAwait(false))
+            {
+                log.LogError($"File {fileName} does not exist in container {containerName}. Returning.");
+                return;
+            }
+
+            await blockBlobClient.DeleteAsync().ConfigureAwait(false);
         }
 
         public async Task MoveFileAsync(string inputContainerName,  string inputFileName, string outputContainerName, string outputFileName, bool keepSource, ILogger log)

@@ -52,7 +52,7 @@ namespace RealtimeTranscription
 
             try
             {
-                var audioBytes = await StorageConnectorInstance.DownloadFileFromContainer(
+                var audioBytes = await StorageConnectorInstance.DownloadFileFromContainerAsync(
                     RealtimeTranscriptionEnvironmentVariables.AudioInputContainer,
                     audioFileName).ConfigureAwait(false);
 

@@ -14,6 +14,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StartTranscriptionByTimer",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealtimeTranscription", "RealtimeTranscription\RealtimeTranscription.csproj", "{5B4B7645-41AD-4951-AA06-44DF94CDEB8D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ByosAudioUploaded", "ByosAudioUploaded\ByosAudioUploaded.csproj", "{77B3C723-7805-4BB9-A2D7-2B7D44B6A788}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ByosResultUploaded", "ByosResultUploaded\ByosResultUploaded.csproj", "{AA979422-CC22-4154-A828-DD3EA7E70379}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,14 @@ Global
 		{5B4B7645-41AD-4951-AA06-44DF94CDEB8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B4B7645-41AD-4951-AA06-44DF94CDEB8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B4B7645-41AD-4951-AA06-44DF94CDEB8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77B3C723-7805-4BB9-A2D7-2B7D44B6A788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77B3C723-7805-4BB9-A2D7-2B7D44B6A788}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77B3C723-7805-4BB9-A2D7-2B7D44B6A788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77B3C723-7805-4BB9-A2D7-2B7D44B6A788}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA979422-CC22-4154-A828-DD3EA7E70379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA979422-CC22-4154-A828-DD3EA7E70379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA979422-CC22-4154-A828-DD3EA7E70379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA979422-CC22-4154-A828-DD3EA7E70379}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
