@@ -83,7 +83,7 @@ namespace ByosAudioUploaded
         {
             if (message == null || message.Body == null || !message.Body.Any())
             {
-                logger.LogError($"Message {nameof(message)} is null.");
+                logger.LogError($"Message {nameof(message)} is null or empty.");
                 return false;
             }
 

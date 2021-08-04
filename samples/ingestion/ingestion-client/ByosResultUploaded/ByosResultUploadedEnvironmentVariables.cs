@@ -6,8 +6,6 @@
 namespace ByosResultUploaded
 {
     using System;
-    using Connector;
-    using Connector.Constants;
 
     public static class ByosResultUploadedEnvironmentVariables
     {
@@ -16,8 +14,6 @@ namespace ByosResultUploaded
         public static readonly string SpeechServicesOutputContainer = Environment.GetEnvironmentVariable(nameof(SpeechServicesOutputContainer), EnvironmentVariableTarget.Process);
 
         public static readonly bool DeleteProcessedAudioFilesFromStorage = bool.TryParse(Environment.GetEnvironmentVariable(nameof(DeleteProcessedAudioFilesFromStorage), EnvironmentVariableTarget.Process), out DeleteProcessedAudioFilesFromStorage) && DeleteProcessedAudioFilesFromStorage;
-
-        public static readonly bool DeleteCustomSpeechArtifacts = bool.TryParse(Environment.GetEnvironmentVariable(nameof(DeleteCustomSpeechArtifacts), EnvironmentVariableTarget.Process), out DeleteCustomSpeechArtifacts) && DeleteCustomSpeechArtifacts;
 
         // Storage configuration:
         public static readonly string AudioInputContainer = Environment.GetEnvironmentVariable(nameof(AudioInputContainer), EnvironmentVariableTarget.Process);

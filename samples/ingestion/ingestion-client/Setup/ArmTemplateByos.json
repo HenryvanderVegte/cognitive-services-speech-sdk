@@ -257,7 +257,6 @@
         "AuthRuleResultUploaded": "[resourceId('Microsoft.ServiceBus/namespaces/queues/authorizationRules', variables('ServiceBusName'), variables('ResultUploadedQueueName'), variables('ResultUploadedEventName'))]",
         "AuthRuleRMK": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', variables('ServiceBusName'),'RootManageSharedAccessKey')]",
         "DeleteProcessedAudioFilesFromStorage": false,
-        "DeleteCustomSpeechArtifacts": false,
         "MessagesPerFunctionExecution": 1000,
         "FilesPerTranscriptionJob": 100,
         "RetryLimit": 4,
