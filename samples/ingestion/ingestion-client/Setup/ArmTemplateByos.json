@@ -262,8 +262,8 @@
         "RetryLimit": 4,
         "InitialRetryDelayInMinutes": 2,
         "MaxRetryDelayInMinutes": 16,
-        "AudioUploadedFunctionBinary": "",
-        "ResultUploadedFunctionBinary": ""
+        "AudioUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/ByosAudioUploaded.zip",
+        "ResultUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/ByosResultUploaded.zip"
     },
     "resources": [
         {
@@ -521,7 +521,6 @@
                                 "AddDiarization": "[parameters('AddDiarization')]",
                                 "AddWordLevelTimestamps": "[parameters('AddWordLevelTimestamps')]",
                                 "DeleteProcessedAudioFilesFromStorage": "[variables('DeleteProcessedAudioFilesFromStorage')]",
-                                "DeleteCustomSpeechArtifacts": "[variables('DeleteCustomSpeechArtifacts')]",
                                 "ProfanityFilterMode": "[parameters('ProfanityFilterMode')]",
                                 "PunctuationMode": "[parameters('PunctuationMode')]",
                                 "AudioInputContainer": "[variables('AudioInputContainer')]",
