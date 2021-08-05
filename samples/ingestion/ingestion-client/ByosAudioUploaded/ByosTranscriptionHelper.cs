@@ -282,6 +282,13 @@ namespace ByosAudioUploaded
             properties.Add("WordLevelTimestampsEnabled", addWordLevelTimestamps.ToString(CultureInfo.InvariantCulture));
             Logger.LogInformation($"Setting word level timestamps enabled to {addWordLevelTimestamps}");
 
+            var transcriptionTimeToLive = ByosAudioUploadedEnvironmentVariables.TranscriptionTimeToLive;
+            if (!string.IsNullOrEmpty(transcriptionTimeToLive))
+            {
+                properties.Add("timeToLive", transcriptionTimeToLive);
+                Logger.LogInformation($"Setting transcription time to live to \'{transcriptionTimeToLive}\'");
+            }
+
             return properties;
         }
 

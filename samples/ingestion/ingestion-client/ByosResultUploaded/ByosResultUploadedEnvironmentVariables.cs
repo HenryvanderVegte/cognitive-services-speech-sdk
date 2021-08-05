@@ -11,9 +11,10 @@ namespace ByosResultUploaded
     {
         public static readonly string AzureWebJobsStorage = Environment.GetEnvironmentVariable(nameof(AzureWebJobsStorage), EnvironmentVariableTarget.Process);
 
-        public static readonly string SpeechServicesOutputContainer = Environment.GetEnvironmentVariable(nameof(SpeechServicesOutputContainer), EnvironmentVariableTarget.Process);
-
+        // Azure function custom setup:
         public static readonly bool DeleteProcessedAudioFilesFromStorage = bool.TryParse(Environment.GetEnvironmentVariable(nameof(DeleteProcessedAudioFilesFromStorage), EnvironmentVariableTarget.Process), out DeleteProcessedAudioFilesFromStorage) && DeleteProcessedAudioFilesFromStorage;
+
+        public static readonly bool DeleteCustomSpeechArtifacts = bool.TryParse(Environment.GetEnvironmentVariable(nameof(DeleteCustomSpeechArtifacts), EnvironmentVariableTarget.Process), out DeleteCustomSpeechArtifacts) && DeleteCustomSpeechArtifacts;
 
         // Storage configuration:
         public static readonly string AudioInputContainer = Environment.GetEnvironmentVariable(nameof(AudioInputContainer), EnvironmentVariableTarget.Process);
@@ -25,5 +26,7 @@ namespace ByosResultUploaded
         public static readonly string ErrorReportOutputContainer = Environment.GetEnvironmentVariable(nameof(ErrorReportOutputContainer), EnvironmentVariableTarget.Process);
 
         public static readonly string JsonResultOutputContainer = Environment.GetEnvironmentVariable(nameof(JsonResultOutputContainer), EnvironmentVariableTarget.Process);
+
+        public static readonly string SpeechServicesOutputContainer = Environment.GetEnvironmentVariable(nameof(SpeechServicesOutputContainer), EnvironmentVariableTarget.Process);
     }
 }

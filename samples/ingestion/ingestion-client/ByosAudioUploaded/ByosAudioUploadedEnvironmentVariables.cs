@@ -54,6 +54,8 @@ namespace ByosAudioUploaded
 
         public static readonly string PunctuationMode = Environment.GetEnvironmentVariable(nameof(PunctuationMode), EnvironmentVariableTarget.Process);
 
+        public static readonly string TranscriptionTimeToLive = Environment.GetEnvironmentVariable(nameof(TranscriptionTimeToLive), EnvironmentVariableTarget.Process);
+
         // Storage configuration:
         public static readonly string AudioInputContainer = Environment.GetEnvironmentVariable(nameof(AudioInputContainer), EnvironmentVariableTarget.Process);
 

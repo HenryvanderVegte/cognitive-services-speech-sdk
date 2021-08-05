@@ -23,9 +23,9 @@ namespace ByosResultUploaded
             Logger = logger;
         }
 
-        public async Task ProcessResultFileAsync(string containerName, string fileName)
+        public async Task ProcessResultFileAsync(string artifactContainerName, string artifactFileName)
         {
-            var byteResult = await StorageConnectorInstance.DownloadFileFromContainerAsync(containerName, fileName).ConfigureAwait(false);
+            var byteResult = await StorageConnectorInstance.DownloadFileFromContainerAsync(artifactContainerName, artifactFileName).ConfigureAwait(false);
             var jsonResult = Encoding.UTF8.GetString(byteResult);
 
             var jsonDocument = JsonDocument.Parse(jsonResult);
@@ -43,16 +43,27 @@ namespace ByosResultUploaded
                 {
                     await ProcessReportFileAsync(jsonDocument.RootElement).ConfigureAwait(false);
                 }
+
+                if (ByosResultUploadedEnvironmentVariables.DeleteCustomSpeechArtifacts)
+                {
+                    await StorageConnectorInstance.DeleteFileAsync(artifactContainerName, artifactFileName, Logger).ConfigureAwait(false);
+                }
             }
             else if (jsonDocument.RootElement.TryGetProperty("source", out _) &&
                 jsonDocument.RootElement.TryGetProperty("combinedRecognizedPhrases", out _) &&
                 jsonDocument.RootElement.TryGetProperty("recognizedPhrases", out _))
             {
                 await ProcessTranscriptionFileAsync(jsonDocument.RootElement, jsonResult).ConfigureAwait(false);
+
+                if (ByosResultUploadedEnvironmentVariables.DeleteCustomSpeechArtifacts)
+                {
+                    await StorageConnectorInstance.DeleteFileAsync(artifactContainerName, artifactFileName, Logger).ConfigureAwait(false);
+                }
             }
             else
             {
-                Logger.LogError($"Unexpected result file format for file {fileName} in container {containerName}.");
+                // Leave custom speech artifact on storage in that case for investigation
+                Logger.LogError($"Unexpected result file format for file {artifactFileName} in container {artifactContainerName}.");
             }
         }
 
