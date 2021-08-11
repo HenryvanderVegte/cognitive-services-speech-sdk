@@ -21,7 +21,7 @@ namespace ByosAudioUploaded
     {
         private const double MessageReceiveTimeoutInSeconds = 30;
 
-        private static readonly MessageReceiver MessageReceiverInstance = new (new ServiceBusConnectionStringBuilder(ByosAudioUploadedEnvironmentVariables.AudioUploadedServiceBusConnectionString), prefetchCount: ByosAudioUploadedEnvironmentVariables.MessagesPerFunctionExecution);
+        private static readonly MessageReceiver MessageReceiverInstance = new MessageReceiver(new ServiceBusConnectionStringBuilder(ByosAudioUploadedEnvironmentVariables.AudioUploadedServiceBusConnectionString), prefetchCount: ByosAudioUploadedEnvironmentVariables.MessagesPerFunctionExecution);
 
         [FunctionName("ByosAudioUploaded")]
         public static async Task Run([TimerTrigger("0 */1 * * * *")] TimerInfo timerInfo, ILogger logger)
