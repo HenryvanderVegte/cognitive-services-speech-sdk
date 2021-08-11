@@ -264,8 +264,8 @@
         "RetryLimit": 4,
         "InitialRetryDelayInMinutes": 2,
         "MaxRetryDelayInMinutes": 16,
-        "AudioUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/ByosAudioUploaded.zip",
-        "ResultUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/ByosResultUploaded.zip"
+        "AudioUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/11082021.1/ByosAudioUploaded.zip",
+        "ResultUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/11082021.1/ByosResultUploaded.zip"
     },
     "resources": [
         {
@@ -478,7 +478,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2017-05-10",
-            "name": "test",
+            "name": "setWebAppSettings",
             "dependsOn": [
                 "[concat('Microsoft.Resources/deployments/', 'attachStorageAccount')]",
                 "[resourceId('Microsoft.Insights/components', variables('AppInsightsName'))]",
