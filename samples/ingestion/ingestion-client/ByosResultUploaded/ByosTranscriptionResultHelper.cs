@@ -14,7 +14,7 @@ namespace ByosResultUploaded
 
     public sealed class ByosTranscriptionResultHelper
     {
-        private static readonly StorageConnector StorageConnectorInstance = new (ByosResultUploadedEnvironmentVariables.AzureWebJobsStorage);
+        private static readonly StorageConnector StorageConnectorInstance = new StorageConnector(ByosResultUploadedEnvironmentVariables.AzureWebJobsStorage);
 
         private readonly ILogger Logger;
 
