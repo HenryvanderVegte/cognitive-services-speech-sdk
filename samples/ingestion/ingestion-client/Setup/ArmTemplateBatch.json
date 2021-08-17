@@ -378,7 +378,8 @@
             "properties": {
                 "administratorLogin": "[parameters('SqlAdministratorLogin')]",
                 "administratorLoginPassword": "[parameters('SqlAdministratorLoginPassword')]",
-                "version": "12.0"
+                "version": "12.0",
+                "publicNetworkAccess": "Disabled"
             },
             "resources": [
                 {
@@ -412,23 +413,6 @@
                             "dependsOn": [
                                 "[variables('DatabaseName')]"
                             ]
-                        },
-                        {
-                            "name": "Import",
-                            "condition": "[variables('UseSqlDatabase')]",
-                            "type": "extensions",
-                            "apiVersion": "2014-04-01",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Sql/servers/databases', variables('SqlServerName'), variables('DatabaseName'))]"
-                            ],
-                            "properties": {
-                                "operationMode": "Import",
-                                "storageKey": "?",
-                                "storageKeyType": "SharedAccessKey",
-                                "administratorLogin": "[parameters('SqlAdministratorLogin')]",
-                                "administratorLoginPassword": "[parameters('SqlAdministratorLoginPassword')]",
-                                "storageUri": "https://mspublicstorage.blob.core.windows.net/transcription-enabled-storage/transcription_accelerator_db.bacpac"
-                            }
                         }
                     ]
                 },
@@ -449,20 +433,6 @@
                         "auditActionsAndGroups": null,
                         "isStorageSecondaryKeyInUse": false
                     }
-                },
-                {
-                    "name": "AllowAllMicrosoftAzureIps",
-                    "condition": "[variables('UseSqlDatabase')]",
-                    "type": "firewallrules",
-                    "apiVersion": "2014-04-01",
-                    "location": "[resourceGroup().location]",
-                    "properties": {
-                        "endIpAddress": "0.0.0.0",
-                        "startIpAddress": "0.0.0.0"
-                    },
-                    "dependsOn": [
-                        "[variables('SqlServerName')]"
-                    ]
                 }
             ]
         },
