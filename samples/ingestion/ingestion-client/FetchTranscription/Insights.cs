@@ -61,7 +61,7 @@ namespace FetchTranscription
                             Itn = phrase.NBest.FirstOrDefault()?.ITN,
                             MaskedItn = phrase.NBest.FirstOrDefault()?.MaskedITN,
                             Lexical = phrase.NBest.FirstOrDefault()?.Lexical,
-                            Channel = Math.Max(phrase.Channel, (phrase.Speaker - 1) % 2) // -1 since speaker id starts at 1; % 2 since only 2 channels are allowed
+                            Channel = Math.Max(phrase.Channel, phrase.Speaker)
                         })
                 }
             };
@@ -90,16 +90,24 @@ namespace FetchTranscription
                 Log.LogInformation("Starting redaction request.");
                 var response = await HttpClient.PostAsync(PiiRedactionUri, content).ConfigureAwait(false);
 
-                response.EnsureSuccessStatusCode();
+                await response.EnsureSuccessStatusCodeAsync().ConfigureAwait(false);
 
                 var respo = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                 speechTranscript.AddRedactionResponse(JObject.Parse(respo));
                 Log.LogInformation("Added redaction response to transcript.");
             }
-            catch (HttpRequestException e)
+            catch (Exception exception)
             {
-                var entityRedactionError = $"Redaction request failed with exception: {e.Message}";
+                // only throw if there is a chance that we'd get the response in a retry, otherwise just log it as error
+                if (exception is HttpStatusCodeException statusCodeException &&
+                    statusCodeException.HttpStatusCode.HasValue &&
+                    statusCodeException.HttpStatusCode.Value.IsRetryableStatus())
+                {
+                    throw;
+                }
+
+                var entityRedactionError = $"Redaction request failed with exception: {exception.Message}";
                 Log.LogError(entityRedactionError);
                 redactionErrors.Add(entityRedactionError);
             }

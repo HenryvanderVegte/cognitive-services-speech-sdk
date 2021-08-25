@@ -216,6 +216,14 @@ namespace FetchTranscriptionFunction
 
                 if (transcriptionResult.RecognizedPhrases != null && transcriptionResult.RecognizedPhrases.All(phrase => phrase.RecognitionStatus.Equals("Success", StringComparison.Ordinal)))
                 {
+                    if (FetchTranscriptionEnvironmentVariables.RedactPii || FetchTranscriptionEnvironmentVariables.DetectCallReason)
+                    {
+                        foreach (var phrase in transcriptionResult.RecognizedPhrases)
+                        {
+                            phrase.Speaker = Math.Max(0, phrase.Speaker - 1); // setting speaker id-=1 since they start at 1, not 0
+                        }
+                    }
+
                     if (FetchTranscriptionEnvironmentVariables.RedactPii)
                     {
                         var errors = await insights.AddRedactionToTranscriptAsync(transcriptionResult).ConfigureAwait(false);
