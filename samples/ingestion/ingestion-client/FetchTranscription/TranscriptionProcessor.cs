@@ -14,6 +14,7 @@ namespace FetchTranscriptionFunction
     using System.Xml;
     using Connector;
     using Connector.Enums;
+    using global::FetchTranscription;
     using Microsoft.Azure.ServiceBus;
     using Microsoft.Extensions.Logging;
     using Microsoft.WindowsAzure.Storage;
@@ -190,6 +191,10 @@ namespace FetchTranscriptionFunction
 
             var textAnalytics = textAnalyticsInfoProvided ? new TextAnalytics(serviceBusMessage.Locale, textAnalyticsKey, textAnalyticsRegion, log) : null;
 
+            var insights = (FetchTranscriptionEnvironmentVariables.RedactPii || FetchTranscriptionEnvironmentVariables.DetectCallReason) ?
+                new Insights(subscriptionKey, FetchTranscriptionEnvironmentVariables.AzureSpeechServicesRegion, log) :
+                null;
+
             var generalErrorsStringBuilder = new StringBuilder();
 
             foreach (var resultFile in resultFiles)
@@ -211,6 +216,20 @@ namespace FetchTranscriptionFunction
 
                 if (transcriptionResult.RecognizedPhrases != null && transcriptionResult.RecognizedPhrases.All(phrase => phrase.RecognitionStatus.Equals("Success", StringComparison.Ordinal)))
                 {
+                    if (FetchTranscriptionEnvironmentVariables.RedactPii)
+                    {
+                        var errors = await insights.AddRedactionToTranscriptAsync(transcriptionResult).ConfigureAwait(false);
+                        var errorMessage = $"File {(string.IsNullOrEmpty(fileName) ? "unknown" : fileName)}:\n{string.Join('\n', errors)}";
+                        generalErrorsStringBuilder.AppendLine(errorMessage);
+                    }
+
+                    if (FetchTranscriptionEnvironmentVariables.DetectCallReason)
+                    {
+                        var errors = await insights.AddCallReasonToTranscriptAsync(transcriptionResult).ConfigureAwait(false);
+                        var errorMessage = $"File {(string.IsNullOrEmpty(fileName) ? "unknown" : fileName)}:\n{string.Join('\n', errors)}";
+                        generalErrorsStringBuilder.AppendLine(errorMessage);
+                    }
+
                     var textAnalyticsErrors = new List<string>();
 
                     if (FetchTranscriptionEnvironmentVariables.SentimentAnalysisSetting != SentimentAnalysisSetting.None)

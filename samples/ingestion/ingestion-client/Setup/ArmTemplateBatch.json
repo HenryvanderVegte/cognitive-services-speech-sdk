@@ -134,6 +134,20 @@
                 "description": "A value indicating whether word level timestamps are requested."
             }
         },
+        "RedactPii": {
+            "defaultValue": false,
+            "type": "bool",
+            "metadata": {
+                "description": "A value indicating whether PII should be redacted."
+            }
+        },
+        "DetectCallReason": {
+            "defaultValue": false,
+            "type": "bool",
+            "metadata": {
+                "description": "A value indicating whether CallReason should be detected."
+            }
+        },
         "TextAnalyticsKey": {
             "defaultValue": "",
             "type": "SecureString",
@@ -904,6 +918,7 @@
                 "AudioInputContainer": "[variables('AudioInputContainer')]",
                 "AzureServiceBus": "[listKeys(variables('AuthRuleRMK'),'2015-08-01').primaryConnectionString]",
                 "AzureSpeechServicesKey": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('AzureSpeechServicesKeySecretName'), ')')]",
+                "AzureSpeechServicesRegion": "[parameters('AzureSpeechServicesRegion')]",
                 "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('StorageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
                 "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('StorageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
                 "CreateHtmlResultFile": "[variables('CreateHtmlResultFile')]",
@@ -922,11 +937,13 @@
                 "TextAnalyticsKey": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('TextAnalyticsKeySecretName'), ')')]",
                 "TextAnalyticsRegion": "[parameters('TextAnalyticsRegion')]",
                 "UseSqlDatabase": "[variables('UseSqlDatabase')]",
-                "WEBSITE_RUN_FROM_PACKAGE": "https://mspublicstorage.blob.core.windows.net/transcription-enabled-storage/FetchTranscription.zip",
+                "WEBSITE_RUN_FROM_PACKAGE": "https://mspublicstorage.blob.core.windows.net/ingestion-client-insights/FetchTranscription.zip",
                 "CreateConsolidatedOutputFiles": "[variables('CreateConsolidatedOutputFiles')]",
                 "ConsolidatedFilesOutputContainer": "[variables('ConsolidatedFilesOutputContainer')]",
                 "CreateAudioProcessedContainer": "[variables('CreateAudioProcessedContainer')]",
-                "AudioProcessedContainer": "[variables('AudioProcessedContainer')]"
+                "AudioProcessedContainer": "[variables('AudioProcessedContainer')]",
+                "RedactPii": "[parameters('RedactPii')]",
+                "DetectCallReason": "[parameters('DetectCallReason')]"
             }
         }
     ],

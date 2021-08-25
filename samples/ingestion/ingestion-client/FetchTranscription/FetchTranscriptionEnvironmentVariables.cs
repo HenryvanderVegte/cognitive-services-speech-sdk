@@ -16,6 +16,10 @@ namespace FetchTranscriptionFunction
 
         public static readonly EntityRedactionSetting EntityRedactionSetting = Enum.TryParse(Environment.GetEnvironmentVariable(nameof(EntityRedactionSetting), EnvironmentVariableTarget.Process), out EntityRedactionSetting) ? EntityRedactionSetting : EntityRedactionSetting.None;
 
+        public static readonly bool RedactPii = bool.TryParse(Environment.GetEnvironmentVariable(nameof(RedactPii), EnvironmentVariableTarget.Process), out RedactPii) && RedactPii;
+
+        public static readonly bool DetectCallReason = bool.TryParse(Environment.GetEnvironmentVariable(nameof(DetectCallReason), EnvironmentVariableTarget.Process), out DetectCallReason) && DetectCallReason;
+
         public static readonly bool CreateHtmlResultFile = bool.TryParse(Environment.GetEnvironmentVariable(nameof(CreateHtmlResultFile), EnvironmentVariableTarget.Process), out CreateHtmlResultFile) && CreateHtmlResultFile;
 
         public static readonly bool UseSqlDatabase = bool.TryParse(Environment.GetEnvironmentVariable(nameof(UseSqlDatabase), EnvironmentVariableTarget.Process), out UseSqlDatabase) && UseSqlDatabase;
@@ -29,6 +33,8 @@ namespace FetchTranscriptionFunction
         public static readonly string AudioInputContainer = Environment.GetEnvironmentVariable(nameof(AudioInputContainer), EnvironmentVariableTarget.Process);
 
         public static readonly string AzureSpeechServicesKey = Environment.GetEnvironmentVariable(nameof(AzureSpeechServicesKey), EnvironmentVariableTarget.Process);
+
+        public static readonly string AzureSpeechServicesRegion = Environment.GetEnvironmentVariable(nameof(AzureSpeechServicesRegion), EnvironmentVariableTarget.Process);
 
         public static readonly string AzureWebJobsStorage = Environment.GetEnvironmentVariable(nameof(AzureWebJobsStorage), EnvironmentVariableTarget.Process);
 

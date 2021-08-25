@@ -7,11 +7,9 @@ namespace FetchTranscriptionFunction
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
-    using System.Reflection.Metadata.Ecma335;
     using System.Text;
     using System.Threading.Tasks;
     using System.Web;
