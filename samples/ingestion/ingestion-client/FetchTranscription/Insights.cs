@@ -168,11 +168,19 @@ namespace FetchTranscription
                 speechTranscript.AddCallReasonResponse(JObject.Parse(respo));
                 Log.LogInformation("Added call reason response to transcript.");
             }
-            catch (HttpRequestException e)
+            catch (Exception exception)
             {
-                var callReasonError = $"Call reason request failed with exception: {e.Message}";
-                Log.LogError(callReasonError);
-                callReasonErrors.Add(callReasonError);
+                // only throw if there is a chance that we'd get the response in a retry, otherwise just log it as error
+                if (exception is HttpStatusCodeException statusCodeException &&
+                    statusCodeException.HttpStatusCode.HasValue &&
+                    statusCodeException.HttpStatusCode.Value.IsRetryableStatus())
+                {
+                    throw;
+                }
+
+                var entityRedactionError = $"Call reason request failed with exception: {exception.Message}";
+                Log.LogError(entityRedactionError);
+                callReasonErrors.Add(entityRedactionError);
             }
 
             return callReasonErrors.AsEnumerable<string>();

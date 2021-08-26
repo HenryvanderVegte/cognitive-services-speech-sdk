@@ -697,7 +697,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "condition": "[variables('RedactPiiAudio')]",
+            "condition": "[parameters('RedactPiiAudio')]",
             "apiVersion": "2019-06-01",
             "name": "[concat(variables('StorageAccountName'), '/default/', variables('RedactedAudioContainer'))]",
             "location": "[resourceGroup().location]",

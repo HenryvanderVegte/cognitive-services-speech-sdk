@@ -216,6 +216,8 @@ namespace FetchTranscriptionFunction
 
                 if (transcriptionResult.RecognizedPhrases != null && transcriptionResult.RecognizedPhrases.All(phrase => phrase.RecognitionStatus.Equals("Success", StringComparison.Ordinal)))
                 {
+                    var additionalErrors = new List<string>();
+
                     if (FetchTranscriptionEnvironmentVariables.RedactPii || FetchTranscriptionEnvironmentVariables.DetectCallReason)
                     {
                         foreach (var phrase in transcriptionResult.RecognizedPhrases)
@@ -227,34 +229,30 @@ namespace FetchTranscriptionFunction
                     if (FetchTranscriptionEnvironmentVariables.RedactPii)
                     {
                         var errors = await insights.AddRedactionToTranscriptAsync(transcriptionResult).ConfigureAwait(false);
-                        var errorMessage = $"File {(string.IsNullOrEmpty(fileName) ? "unknown" : fileName)}:\n{string.Join('\n', errors)}";
-                        generalErrorsStringBuilder.AppendLine(errorMessage);
+                        additionalErrors.AddRange(errors);
                     }
 
                     if (FetchTranscriptionEnvironmentVariables.DetectCallReason)
                     {
                         var errors = await insights.AddCallReasonToTranscriptAsync(transcriptionResult).ConfigureAwait(false);
-                        var errorMessage = $"File {(string.IsNullOrEmpty(fileName) ? "unknown" : fileName)}:\n{string.Join('\n', errors)}";
-                        generalErrorsStringBuilder.AppendLine(errorMessage);
+                        additionalErrors.AddRange(errors);
                     }
-
-                    var textAnalyticsErrors = new List<string>();
 
                     if (FetchTranscriptionEnvironmentVariables.SentimentAnalysisSetting != SentimentAnalysisSetting.None)
                     {
                         var sentimentErrors = await textAnalytics.AddSentimentToTranscriptAsync(transcriptionResult, FetchTranscriptionEnvironmentVariables.SentimentAnalysisSetting).ConfigureAwait(false);
-                        textAnalyticsErrors.AddRange(sentimentErrors);
+                        additionalErrors.AddRange(sentimentErrors);
                     }
 
                     if (FetchTranscriptionEnvironmentVariables.EntityRedactionSetting != EntityRedactionSetting.None)
                     {
                         var entityRedactionErrors = await textAnalytics.RedactEntitiesAsync(transcriptionResult, FetchTranscriptionEnvironmentVariables.EntityRedactionSetting).ConfigureAwait(false);
-                        textAnalyticsErrors.AddRange(entityRedactionErrors);
+                        additionalErrors.AddRange(entityRedactionErrors);
                     }
 
-                    if (textAnalyticsErrors.Any())
+                    if (additionalErrors.Any())
                     {
-                        var distinctErrors = textAnalyticsErrors.Distinct();
+                        var distinctErrors = additionalErrors.Distinct();
                         var errorMessage = $"File {(string.IsNullOrEmpty(fileName) ? "unknown" : fileName)}:\n{string.Join('\n', distinctErrors)}";
 
                         generalErrorsStringBuilder.AppendLine(errorMessage);
