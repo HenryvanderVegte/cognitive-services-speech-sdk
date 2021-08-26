@@ -46,6 +46,8 @@ namespace FetchTranscription
                 throw new ArgumentNullException(nameof(speechTranscript));
             }
 
+            var isDiarizationEnabled = speechTranscript.RecognizedPhrases.Any(r => r.Speaker >= 2);
+
             var req = new
             {
                 Transcript = new
