@@ -196,6 +196,7 @@ namespace FetchTranscriptionFunction
                 null;
 
             var generalErrorsStringBuilder = new StringBuilder();
+            var fileNames = new List<string>();
 
             foreach (var resultFile in resultFiles)
             {
@@ -213,6 +214,7 @@ namespace FetchTranscriptionFunction
                 }
 
                 var fileName = StorageConnector.GetFileNameFromUri(new Uri(transcriptionResult.Source));
+                fileNames.Add(fileName);
 
                 if (transcriptionResult.RecognizedPhrases != null && transcriptionResult.RecognizedPhrases.All(phrase => phrase.RecognitionStatus.Equals("Success", StringComparison.Ordinal)))
                 {
@@ -333,11 +335,6 @@ namespace FetchTranscriptionFunction
                         fileName,
                         log).ConfigureAwait(false);
                 }
-
-                if (FetchTranscriptionEnvironmentVariables.CreateAudioProcessedContainer)
-                {
-                    await StorageConnectorInstance.MoveFileAsync(FetchTranscriptionEnvironmentVariables.AudioInputContainer, fileName, FetchTranscriptionEnvironmentVariables.AudioProcessedContainer, fileName, false, log).ConfigureAwait(false);
-                }
             }
 
             var generalErrors = generalErrorsStringBuilder.ToString();
@@ -350,6 +347,14 @@ namespace FetchTranscriptionFunction
                     FetchTranscriptionEnvironmentVariables.ErrorReportOutputContainer,
                     errorTxtname,
                     log).ConfigureAwait(false);
+            }
+
+            if (FetchTranscriptionEnvironmentVariables.CreateAudioProcessedContainer)
+            {
+                foreach (var fileName in fileNames)
+                {
+                    await StorageConnectorInstance.MoveFileAsync(FetchTranscriptionEnvironmentVariables.AudioInputContainer, fileName, FetchTranscriptionEnvironmentVariables.AudioProcessedContainer, fileName, false, log).ConfigureAwait(false);
+                }
             }
 
             var reportFile = transcriptionFiles.Values.Where(t => t.Kind == TranscriptionFileKind.TranscriptionReport).FirstOrDefault();
