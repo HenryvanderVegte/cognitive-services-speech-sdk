@@ -46,9 +46,9 @@ namespace FetchTranscription
                 throw new ArgumentNullException(nameof(speechTranscript));
             }
 
-            var isDiarizationEnabled = speechTranscript.RecognizedPhrases.Any(r => r.Speaker >= 2);
+            var isDiarizationEnabled = speechTranscript.RecognizedPhrases.Any(r => r.Speaker == 2);
 
-            var req = new
+            var requestObject = new
             {
                 Transcript = new
                 {
@@ -63,12 +63,35 @@ namespace FetchTranscription
                             Itn = phrase.NBest.FirstOrDefault()?.ITN,
                             MaskedItn = phrase.NBest.FirstOrDefault()?.MaskedITN,
                             Lexical = phrase.NBest.FirstOrDefault()?.Lexical,
-                            Channel = Math.Max(phrase.Channel, phrase.Speaker)
+                            Channel = Math.Max(phrase.Channel, phrase.Speaker),
+                            Words = phrase.NBest.FirstOrDefault()?.Words?.Select(
+                                word =>
+                                new
+                                {
+                                    Word = word.Word,
+                                    Offset = word.OffsetInTicks,
+                                    Duration = word.DurationInTicks
+                                })
                         })
                 }
             };
 
-            return JsonConvert.SerializeObject(req, Formatting.Indented);
+            var requestJObject = JObject.FromObject(requestObject);
+
+            if (isDiarizationEnabled)
+            {
+                var segmentsObj = requestJObject["Transcript"] as JObject;
+
+                segmentsObj.Property("Segments")
+                    .AddAfterSelf(
+                    new JProperty(
+                        "ChannelRoles",
+                        new JObject(
+                            new JProperty("1", "Agent"),
+                            new JProperty("2", "Customer"))));
+            }
+
+            return JsonConvert.SerializeObject(requestJObject, Formatting.Indented);
         }
 
         public async Task<IEnumerable<string>> AddRedactionToTranscriptAsync(SpeechTranscript speechTranscript)
