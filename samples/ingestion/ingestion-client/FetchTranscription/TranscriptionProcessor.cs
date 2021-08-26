@@ -318,6 +318,24 @@ namespace FetchTranscriptionFunction
                         transcriptionResult).ConfigureAwait(false);
                 }
 
+                if (
+                    FetchTranscriptionEnvironmentVariables.RedactPii &&
+                    FetchTranscriptionEnvironmentVariables.RedactPiiAudio &&
+                    FetchTranscriptionEnvironmentVariables.AddWordLevelTimestamps)
+                {
+                    var audioBytes = await StorageConnectorInstance.DownloadFileFromContainer(
+                        FetchTranscriptionEnvironmentVariables.AudioInputContainer,
+                        fileName).ConfigureAwait(false);
+
+                    var redactedAudioBytes = AudioUtilities.RedactAudio(audioBytes, transcriptionResult.RedactionResponse, FetchTranscriptionEnvironmentVariables.AddDiarization);
+
+                    await StorageConnectorInstance.WriteBinaryFileToBlobAsync(
+                        redactedAudioBytes,
+                        FetchTranscriptionEnvironmentVariables.RedactedAudioContainer,
+                        fileName,
+                        log).ConfigureAwait(false);
+                }
+
                 if (FetchTranscriptionEnvironmentVariables.CreateAudioProcessedContainer)
                 {
                     await StorageConnectorInstance.MoveFileAsync(FetchTranscriptionEnvironmentVariables.AudioInputContainer, fileName, FetchTranscriptionEnvironmentVariables.AudioProcessedContainer, fileName, false, log).ConfigureAwait(false);
