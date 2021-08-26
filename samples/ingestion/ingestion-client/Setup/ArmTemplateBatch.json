@@ -251,7 +251,7 @@
         "CreateConsolidatedOutputFiles": false,
         "TimerBasedExecution": true,
         "CreateAudioProcessedContainer": true,
-        "MessagesPerFunctionExecution": 50,
+        "MessagesPerFunctionExecution": 100,
         "FilesPerTranscriptionJob": 5,
         "RetryLimit": 4,
         "InitialPollingDelayInMinutes": 2,
