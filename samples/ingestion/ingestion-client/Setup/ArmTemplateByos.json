@@ -1,11 +1,198 @@
 {
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "cognitiveServicesResourceName": {
+    "parameters":
+    {
+        "1 - CognitiveServicesResourceName":
+        {
             "type": "String"
         },
-        "cognitiveServicesResourceRegion": {
+        "1 - CognitiveServicesResourceRegion":
+        {
+            "defaultValue": "centralus",
+            "type": "String",
+            "allowedValues": [
+                "centralus",
+                "eastus",
+                "eastus2",
+                "northcentralus",
+                "southcentralus",
+                "westcentralus",
+                "westus",
+                "westus2",
+                "canadacentral",
+                "brazilsouth",
+                "eastasia",
+                "southeastasia",
+                "australiaeast",
+                "centralindia",
+                "japaneast",
+                "japanwest",
+                "koreacentral",
+                "northeurope",
+                "westeurope",
+                "francecentral",
+                "uksouth"
+            ],
+            "metadata":
+            {
+                "description": "The default cognitive services resource region."
+            }
+        },
+        "1 - CognitiveServicesModelId":
+        {
+            "defaultValue": "",
+            "type": "String"
+        },
+        "1 - CognitiveServicesRequestPercentage":
+        {
+            "defaultValue": 20,
+            "type": "int"
+        },
+        "2 - CognitiveServicesResourceName":
+        {
+            "type": "String"
+        },
+        "2 - CognitiveServicesResourceRegion":
+        {
+            "defaultValue": "eastus",
+            "type": "String",
+            "allowedValues": [
+                "centralus",
+                "eastus",
+                "eastus2",
+                "northcentralus",
+                "southcentralus",
+                "westcentralus",
+                "westus",
+                "westus2",
+                "canadacentral",
+                "brazilsouth",
+                "eastasia",
+                "southeastasia",
+                "australiaeast",
+                "centralindia",
+                "japaneast",
+                "japanwest",
+                "koreacentral",
+                "northeurope",
+                "westeurope",
+                "francecentral",
+                "uksouth"
+            ],
+            "metadata":
+            {
+                "description": "The default cognitive services resource region."
+            }
+        },
+        "2 - CognitiveServicesModelId":
+        {
+            "defaultValue": "",
+            "type": "String"
+        },
+        "2 - CognitiveServicesRequestPercentage":
+        {
+            "defaultValue": 20,
+            "type": "int"
+        },
+        "3 - CognitiveServicesResourceName":
+        {
+            "type": "String"
+        },
+        "3 - CognitiveServicesResourceRegion":
+        {
+            "defaultValue": "northcentralus",
+            "type": "String",
+            "allowedValues": [
+                "centralus",
+                "eastus",
+                "eastus2",
+                "northcentralus",
+                "southcentralus",
+                "westcentralus",
+                "westus",
+                "westus2",
+                "canadacentral",
+                "brazilsouth",
+                "eastasia",
+                "southeastasia",
+                "australiaeast",
+                "centralindia",
+                "japaneast",
+                "japanwest",
+                "koreacentral",
+                "northeurope",
+                "westeurope",
+                "francecentral",
+                "uksouth"
+            ],
+            "metadata":
+            {
+                "description": "The default cognitive services resource region."
+            }
+        },
+        "3 - CognitiveServicesModelId":
+        {
+            "defaultValue": "",
+            "type": "String"
+        },
+        "3 - CognitiveServicesRequestPercentage":
+        {
+            "defaultValue": 20,
+            "type": "int"
+        },
+        "4 - CognitiveServicesResourceName":
+        {
+            "type": "String"
+        },
+        "4 - CognitiveServicesResourceRegion":
+        {
+            "defaultValue": "southcentralus",
+            "type": "String",
+            "allowedValues": [
+                "centralus",
+                "eastus",
+                "eastus2",
+                "northcentralus",
+                "southcentralus",
+                "westcentralus",
+                "westus",
+                "westus2",
+                "canadacentral",
+                "brazilsouth",
+                "eastasia",
+                "southeastasia",
+                "australiaeast",
+                "centralindia",
+                "japaneast",
+                "japanwest",
+                "koreacentral",
+                "northeurope",
+                "westeurope",
+                "francecentral",
+                "uksouth"
+            ],
+            "metadata":
+            {
+                "description": "The default cognitive services resource region."
+            }
+        },
+        "4 - CognitiveServicesModelId":
+        {
+            "defaultValue": "",
+            "type": "String"
+        },
+        "4 - CognitiveServicesRequestPercentage":
+        {
+            "defaultValue": 20,
+            "type": "int"
+        },
+        "5 - CognitiveServicesResourceName":
+        {
+            "type": "String"
+        },
+        "5 - CognitiveServicesResourceRegion":
+        {
             "defaultValue": "westus",
             "type": "String",
             "allowedValues": [
@@ -31,52 +218,23 @@
                 "francecentral",
                 "uksouth"
             ],
-            "metadata": {
+            "metadata":
+            {
                 "description": "The default cognitive services resource region."
             }
         },
-        "customModelId": {
+        "5 - CognitiveServicesModelId":
+        {
             "defaultValue": "",
             "type": "String"
         },
-        "cognitiveServicesFallbackResourceName": {
-            "type": "String"
+        "5 - CognitiveServicesRequestPercentage":
+        {
+            "defaultValue": 20,
+            "type": "int"
         },
-        "cognitiveServicesFallbackResourceRegion": {
-            "defaultValue": "westcentralus",
-            "type": "String",
-            "allowedValues": [
-                "centralus",
-                "eastus",
-                "eastus2",
-                "northcentralus",
-                "southcentralus",
-                "westcentralus",
-                "westus",
-                "westus2",
-                "canadacentral",
-                "brazilsouth",
-                "eastasia",
-                "southeastasia",
-                "australiaeast",
-                "centralindia",
-                "japaneast",
-                "japanwest",
-                "koreacentral",
-                "northeurope",
-                "westeurope",
-                "francecentral",
-                "uksouth"
-            ],
-            "metadata": {
-                "description": "The fallback cognitive services resource region."
-            }
-        },
-        "fallbackCustomModelId": {
-            "defaultValue": "",
-            "type": "String"
-        },
-        "transcriptionLocale": {
+        "TranscriptionLocale":
+        {
             "defaultValue": "en-US | English (United States)",
             "type": "String",
             "allowedValues": [
@@ -119,7 +277,8 @@
                 "zh-TW | Chinese (Taiwanese Mandarin)"
             ]
         },
-        "ProfanityFilterMode": {
+        "ProfanityFilterMode":
+        {
             "defaultValue": "None",
             "type": "String",
             "allowedValues": [
@@ -128,11 +287,13 @@
                 "Tags",
                 "Masked"
             ],
-            "metadata": {
+            "metadata":
+            {
                 "description": "The requested profanity filter mode."
             }
         },
-        "PunctuationMode": {
+        "PunctuationMode":
+        {
             "defaultValue": "DictatedAndAutomatic",
             "type": "String",
             "allowedValues": [
@@ -141,28 +302,35 @@
                 "Automatic",
                 "DictatedAndAutomatic"
             ],
-            "metadata": {
+            "metadata":
+            {
                 "description": "The requested punctuation mode."
             }
         },
-        "AddDiarization": {
+        "AddDiarization":
+        {
             "defaultValue": false,
             "type": "bool",
-            "metadata": {
+            "metadata":
+            {
                 "description": "A value indicating whether diarization (speaker separation) is requested."
             }
         },
-        "AddWordLevelTimestamps": {
+        "AddWordLevelTimestamps":
+        {
             "defaultValue": false,
             "type": "bool",
-            "metadata": {
+            "metadata":
+            {
                 "description": "A value indicating whether word level timestamps are requested."
             }
         },
-        "storageResourceName": {
+        "StorageResourceName":
+        {
             "type": "String"
         },
-        "storageResourceRegion": {
+        "StorageResourceRegion":
+        {
             "defaultValue": "eastus",
             "type": "String",
             "allowedValues": [
@@ -188,19 +356,42 @@
                 "francecentral",
                 "uksouth"
             ],
-            "metadata": {
-                "description": "The fallback cognitive services resource region."
+            "metadata":
+            {
+                "description": "The storage resource region."
             }
         },
-        "DeploymentId": {
-            "type": "string",
-            "defaultValue": "[utcNow()]",
-            "metadata": {
-                "description": "Id that will be suffixed to all created resources to identify resources of a certain deployment. Leave as is to use timestamp as deployment id."
-            }
+        "AppInsightsResourceName":
+        {
+            "type": "String"
+        },
+        "AppServicePlanResourceName":
+        {
+            "type": "String"
+        },
+        "EventGridResourceName":
+        {
+            "type": "String"
+        },
+        "KeyVaultResourceName":
+        {
+            "type": "String"
+        },
+        "ServiceBusResourceName":
+        {
+            "type": "String"
+        },
+        "AudioUploadedFunctionResourceName":
+        {
+            "type": "String"
+        },
+        "ResultUploadedFunctionResourceName":
+        {
+            "type": "String"
         }
     },
-    "variables": {
+    "variables":
+    {
         "sku": "S0",
         "tagValues": {},
         "storageSkuType": "Standard_LRS",
@@ -209,71 +400,75 @@
         "virtualNetworkType": "None",
         "vnet": {},
         "ipRules": [],
-        "roleAssignmentGuid": "[guid(resourceGroup().id, deployment().name, 'primary')]",
-        "fallbackRoleAssignmentGuid": "[guid(resourceGroup().id, deployment().name, 'fallback')]",
+        "1 - RoleAssignmentGuid": "[guid(resourceGroup().id, deployment().name, '1')]",
+        "2 - RoleAssignmentGuid": "[guid(resourceGroup().id, deployment().name, '2')]",
+        "3 - RoleAssignmentGuid": "[guid(resourceGroup().id, deployment().name, '3')]",
+        "4 - RoleAssignmentGuid": "[guid(resourceGroup().id, deployment().name, '4')]",
+        "5 - RoleAssignmentGuid": "[guid(resourceGroup().id, deployment().name, '5')]",
         "StorageAccountContributorGuid": "ba92f5b4-2d11-453d-a403-e96b0029c9fe",
         "Contributor": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', variables('StorageAccountContributorGuid'))]",
-        "vnetProperties": {
+        "vnetProperties":
+        {
             "publicNetworkAccess": "[if(equals(variables('virtualNetworkType'), 'Internal'), 'Disabled', 'Enabled')]",
-            "networkAcls": {
+            "networkAcls":
+            {
                 "defaultAction": "[if(equals(variables('virtualNetworkType'), 'External'), 'Deny', 'Allow')]",
                 "virtualNetworkRules": "[if(equals(variables('virtualNetworkType'), 'External'), json(concat('[{\"id\": \"', concat(subscription().id, '/resourceGroups/', variables('vnet').resourceGroup, '/providers/Microsoft.Network/virtualNetworks/', variables('vnet').name, '/subnets/', variables('vnet').subnets.subnet.name), '\"}]')), json('[]'))]",
                 "ipRules": "[if(or(empty(variables('ipRules')), empty(variables('ipRules')[0].value)), json('[]'), variables('ipRules'))]"
             }
         },
-        "vnetPropertiesByos": {
+        "vnetPropertiesByos":
+        {
             "publicNetworkAccess": "[if(equals(variables('virtualNetworkType'), 'Internal'), 'Disabled', 'Enabled')]",
-            "networkAcls": {
+            "networkAcls":
+            {
                 "defaultAction": "[if(equals(variables('virtualNetworkType'), 'External'), 'Deny', 'Allow')]",
                 "virtualNetworkRules": "[if(equals(variables('virtualNetworkType'), 'External'), json(concat('[{\"id\": \"', concat(subscription().id, '/resourceGroups/', variables('vnet').resourceGroup, '/providers/Microsoft.Network/virtualNetworks/', variables('vnet').name, '/subnets/', variables('vnet').subnets.subnet.name), '\"}]')), json('[]'))]",
                 "ipRules": "[if(or(empty(variables('ipRules')), empty(variables('ipRules')[0].value)), json('[]'), variables('ipRules'))]"
             },
-            "userOwnedStorage": "[if(not(empty(parameters('storageResourceName'))), createArray(json(concat('{\"resourceId\": \"',concat(subscription().id,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', parameters('storageResourceName'), '\"}')))), json('[]'))]"
+            "userOwnedStorage": "[if(not(empty(parameters('StorageResourceName'))), createArray(json(concat('{\"resourceId\": \"',concat(subscription().id,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', parameters('StorageResourceName'), '\"}')))), json('[]'))]"
         },
-        "DeploymentId": "[parameters('DeploymentId')]",
-        "AppInsightsName": "[concat('AppInsights-', variables('DeploymentId'))]",
-        "ServiceBusName": "[concat('ServiceBus-', variables('DeploymentId'))]",
+        "AppInsightsName": "[parameters('AppInsightsResourceName')]",
+        "ServiceBusName": "[parameters('ServiceBusResourceName')]",
         "IngestionClientRegion": "[resourceGroup().location]",
-        "AppServicePlanName": "[concat('AppServicePlan-', variables('DeploymentId'))]",
-        "KeyVaultName": "[concat('KV-', variables('DeploymentId'))]",
-        "CognitiveServicesKeySecretName": "CognitiveServicesKey",
-        "CognitiveServicesFallbackKeySecretName": "CognitiveServicesFallbackKey",
+        "AppServicePlanName": "[parameters('AppServicePlanResourceName')]",
+        "KeyVaultName": "[parameters('KeyVaultResourceName')]",
+        "CognitiveServicesKeysSecretName": "CognitiveServicesKeys",
         "AudioInputContainer": "audio-input",
         "AudioProcessedContainer": "audio-processed",
         "AudioFailedContainer": "audio-failed",
         "JsonResultOutputContainer": "json-result-output",
         "ErrorReportOutputContainer": "error-report",
         "SpeechServicesOutputContainer": "customspeech-artifacts",
-        "EventGridSystemTopicName": "[concat('EventGrid-', variables('DeploymentId'))]",
+        "EventGridSystemTopicName": "[parameters('EventGridResourceName')]",
         "AudioUploadedQueueName": "audio_uploaded_queue",
         "AudioUploadedEventName": "AudioUploaded",
         "ResultUploadedQueueName": "result_uploaded_queue",
         "ResultUploadedEventName": "ResultUploaded",
-        "IngestionClientAudioUploadedFunctionName": "[take(concat('IngestionClientAudioUpload-', variables('DeploymentId')),60)]",
+        "IngestionClientAudioUploadedFunctionName": "[parameters('AudioUploadedFunctionResourceName')]",
         "IngestionClientAudioUploadedFunctionId": "[resourceId('Microsoft.Web/sites', variables('IngestionClientAudioUploadedFunctionName'))]",
         "AuthRuleAudioUploaded": "[resourceId('Microsoft.ServiceBus/namespaces/queues/authorizationRules', variables('ServiceBusName'), variables('AudioUploadedQueueName'), variables('AudioUploadedEventName'))]",
-        "IngestionClientResultUploadedFunctionName": "[take(concat('IngestionClientResultUpload-', variables('DeploymentId')),60)]",
+        "IngestionClientResultUploadedFunctionName": "[parameters('ResultUploadedFunctionResourceName')]",
         "IngestionClientResultUploadedFunctionId": "[resourceId('Microsoft.Web/sites', variables('IngestionClientResultUploadedFunctionName'))]",
         "AuthRuleResultUploaded": "[resourceId('Microsoft.ServiceBus/namespaces/queues/authorizationRules', variables('ServiceBusName'), variables('ResultUploadedQueueName'), variables('ResultUploadedEventName'))]",
         "AuthRuleRMK": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', variables('ServiceBusName'),'RootManageSharedAccessKey')]",
         "DeleteProcessedAudioFilesFromStorage": false,
         "DeleteCustomSpeechArtifacts": false,
         "TranscriptionTimeToLive": "P1D",
-        "MessagesPerFunctionExecution": 1000,
-        "FilesPerTranscriptionJob": 100,
         "RetryLimit": 4,
         "InitialRetryDelayInMinutes": 2,
         "MaxRetryDelayInMinutes": 16,
-        "AudioUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/11082021.1/ByosAudioUploaded.zip",
-        "ResultUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/11082021.1/ByosResultUploaded.zip"
+        "AudioUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/30082021.1/ByosAudioUploaded.zip",
+        "ResultUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/30082021.1/ByosResultUploaded.zip"
     },
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2019-06-01",
-            "name": "[parameters('storageResourceName')]",
-            "location": "[parameters('storageResourceRegion')]",
-            "sku": {
+            "name": "[parameters('StorageResourceName')]",
+            "location": "[parameters('StorageResourceRegion')]",
+            "sku":
+            {
                 "name": "[variables('storageSkuType')]"
             },
             "kind": "[variables('storageKind')]",
@@ -282,19 +477,23 @@
                 {
                     "type": "Microsoft.Storage/storageAccounts/blobServices",
                     "apiVersion": "2019-06-01",
-                    "location": "[parameters('storageResourceRegion')]",
-                    "name": "[concat(parameters('storageResourceName'), '/default')]",
+                    "location": "[parameters('StorageResourceRegion')]",
+                    "name": "[concat(parameters('StorageResourceName'), '/default')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName'))]"
+                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName'))]"
                     ],
-                    "sku": {
+                    "sku":
+                    {
                         "name": "[variables('storageSkuType')]"
                     },
-                    "properties": {
-                        "cors": {
+                    "properties":
+                    {
+                        "cors":
+                        {
                             "corsRules": []
                         },
-                        "deleteRetentionPolicy": {
+                        "deleteRetentionPolicy":
+                        {
                             "enabled": false
                         }
                     }
@@ -302,78 +501,84 @@
                 {
                     "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
                     "apiVersion": "2019-06-01",
-                    "name": "[concat(parameters('storageResourceName'), '/default/', variables('AudioInputContainer'))]",
-                    "location": "[parameters('storageResourceRegion')]",
+                    "name": "[concat(parameters('StorageResourceName'), '/default/', variables('AudioInputContainer'))]",
+                    "location": "[parameters('StorageResourceRegion')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageResourceName'), 'default')]",
-                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName'))]"
+                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('StorageResourceName'), 'default')]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName'))]"
                     ],
-                    "properties": {
+                    "properties":
+                    {
                         "publicAccess": "None"
                     }
                 },
                 {
                     "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
                     "apiVersion": "2019-06-01",
-                    "name": "[concat(parameters('storageResourceName'), '/default/', variables('AudioProcessedContainer'))]",
-                    "location": "[parameters('storageResourceRegion')]",
+                    "name": "[concat(parameters('StorageResourceName'), '/default/', variables('AudioProcessedContainer'))]",
+                    "location": "[parameters('StorageResourceRegion')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageResourceName'), 'default')]",
-                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName'))]"
+                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('StorageResourceName'), 'default')]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName'))]"
                     ],
-                    "properties": {
+                    "properties":
+                    {
                         "publicAccess": "None"
                     }
                 },
                 {
                     "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
                     "apiVersion": "2019-06-01",
-                    "name": "[concat(parameters('storageResourceName'), '/default/', variables('AudioFailedContainer'))]",
-                    "location": "[parameters('storageResourceRegion')]",
+                    "name": "[concat(parameters('StorageResourceName'), '/default/', variables('AudioFailedContainer'))]",
+                    "location": "[parameters('StorageResourceRegion')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageResourceName'), 'default')]",
-                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName'))]"
+                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('StorageResourceName'), 'default')]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName'))]"
                     ],
-                    "properties": {
+                    "properties":
+                    {
                         "publicAccess": "None"
                     }
                 },
                 {
                     "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
                     "apiVersion": "2019-06-01",
-                    "name": "[concat(parameters('storageResourceName'), '/default/', variables('JsonResultOutputContainer'))]",
-                    "location": "[parameters('storageResourceRegion')]",
+                    "name": "[concat(parameters('StorageResourceName'), '/default/', variables('JsonResultOutputContainer'))]",
+                    "location": "[parameters('StorageResourceRegion')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageResourceName'), 'default')]",
-                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName'))]"
+                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('StorageResourceName'), 'default')]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName'))]"
                     ],
-                    "properties": {
+                    "properties":
+                    {
                         "publicAccess": "None"
                     }
                 },
                 {
                     "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
                     "apiVersion": "2019-06-01",
-                    "name": "[concat(parameters('storageResourceName'), '/default/', variables('ErrorReportOutputContainer'))]",
-                    "location": "[parameters('storageResourceRegion')]",
+                    "name": "[concat(parameters('StorageResourceName'), '/default/', variables('ErrorReportOutputContainer'))]",
+                    "location": "[parameters('StorageResourceRegion')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageResourceName'), 'default')]",
-                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName'))]"
+                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('StorageResourceName'), 'default')]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName'))]"
                     ],
-                    "properties": {
+                    "properties":
+                    {
                         "publicAccess": "None"
                     }
                 },
                 {
                     "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
                     "apiVersion": "2019-06-01",
-                    "name": "[concat(parameters('storageResourceName'), '/default/', variables('SpeechServicesOutputContainer'))]",
-                    "location": "[parameters('storageResourceRegion')]",
+                    "name": "[concat(parameters('StorageResourceName'), '/default/', variables('SpeechServicesOutputContainer'))]",
+                    "location": "[parameters('StorageResourceRegion')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageResourceName'), 'default')]",
-                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName'))]"
+                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('StorageResourceName'), 'default')]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName'))]"
                     ],
-                    "properties": {
+                    "properties":
+                    {
                         "publicAccess": "None"
                     }
                 }
@@ -384,11 +589,13 @@
             "apiVersion": "2017-05-10",
             "name": "grantMIAccessToStorage",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName'))]"
             ],
-            "properties": {
+            "properties":
+            {
                 "mode": "Incremental",
-                "template": {
+                "template":
+                {
                     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
                     "parameters": {},
@@ -397,23 +604,61 @@
                         {
                             "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
                             "apiVersion": "2018-09-01-preview",
-                            "name": "[concat(parameters('storageResourceName'), '/Microsoft.Authorization/', variables('roleAssignmentGuid'))]",
-                            "properties": {
+                            "name": "[concat(parameters('StorageResourceName'), '/Microsoft.Authorization/', variables('1 - RoleAssignmentGuid'))]",
+                            "properties":
+                            {
                                 "roleDefinitionId": "[variables(variables('builtInRoleType'))]",
-                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('cognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
+                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('1 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
                                 "principalType": "ServicePrincipal",
-                                "scope": "[concat(subscription().id,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', parameters('storageResourceName'))]"
+                                "scope": "[concat(subscription().id,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', parameters('StorageResourceName'))]"
                             }
                         },
                         {
                             "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
                             "apiVersion": "2018-09-01-preview",
-                            "name": "[concat(parameters('storageResourceName'), '/Microsoft.Authorization/', variables('fallbackRoleAssignmentGuid'))]",
-                            "properties": {
+                            "name": "[concat(parameters('StorageResourceName'), '/Microsoft.Authorization/', variables('2 - RoleAssignmentGuid'))]",
+                            "properties":
+                            {
                                 "roleDefinitionId": "[variables(variables('builtInRoleType'))]",
-                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('cognitiveServicesFallbackResourceName')), '2017-04-18', 'Full').identity.principalId]",
+                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('2 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
                                 "principalType": "ServicePrincipal",
-                                "scope": "[concat(subscription().id,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', parameters('storageResourceName'))]"
+                                "scope": "[concat(subscription().id,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', parameters('StorageResourceName'))]"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
+                            "apiVersion": "2018-09-01-preview",
+                            "name": "[concat(parameters('StorageResourceName'), '/Microsoft.Authorization/', variables('3 - RoleAssignmentGuid'))]",
+                            "properties":
+                            {
+                                "roleDefinitionId": "[variables(variables('builtInRoleType'))]",
+                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('3 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
+                                "principalType": "ServicePrincipal",
+                                "scope": "[concat(subscription().id,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', parameters('StorageResourceName'))]"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
+                            "apiVersion": "2018-09-01-preview",
+                            "name": "[concat(parameters('StorageResourceName'), '/Microsoft.Authorization/', variables('4 - RoleAssignmentGuid'))]",
+                            "properties":
+                            {
+                                "roleDefinitionId": "[variables(variables('builtInRoleType'))]",
+                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('4 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
+                                "principalType": "ServicePrincipal",
+                                "scope": "[concat(subscription().id,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', parameters('StorageResourceName'))]"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
+                            "apiVersion": "2018-09-01-preview",
+                            "name": "[concat(parameters('StorageResourceName'), '/Microsoft.Authorization/', variables('5 - RoleAssignmentGuid'))]",
+                            "properties":
+                            {
+                                "roleDefinitionId": "[variables(variables('builtInRoleType'))]",
+                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('5 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
+                                "principalType": "ServicePrincipal",
+                                "scope": "[concat(subscription().id,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', parameters('StorageResourceName'))]"
                             }
                         }
                     ]
@@ -428,9 +673,11 @@
             "dependsOn": [
                 "[concat('Microsoft.Resources/deployments/', 'grantMIAccessToStorage')]"
             ],
-            "properties": {
+            "properties":
+            {
                 "mode": "Incremental",
-                "template": {
+                "template":
+                {
                     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
                     "parameters": {},
@@ -439,16 +686,18 @@
                         {
                             "type": "Microsoft.CognitiveServices/accounts",
                             "apiVersion": "2017-04-18",
-                            "name": "[parameters('cognitiveServicesResourceName')]",
-                            "location": "[parameters('cognitiveServicesResourceRegion')]",
-                            "sku": {
+                            "name": "[parameters('1 - CognitiveServicesResourceName')]",
+                            "location": "[parameters('1 - CognitiveServicesResourceRegion')]",
+                            "sku":
+                            {
                                 "name": "[variables('sku')]"
                             },
                             "kind": "SpeechServices",
                             "tags": "[if(contains(variables('tagValues'), 'Microsoft.CognitiveServices/accounts'), variables('tagValues')['Microsoft.CognitiveServices/accounts'], json('{}'))]",
-                            "identity": {
-                                "tenantId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('cognitiveServicesResourceName')), '2017-04-18', 'Full').identity.tenantId]",
-                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('cognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
+                            "identity":
+                            {
+                                "tenantId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('1 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.tenantId]",
+                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('1 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
                                 "type": "systemAssigned"
                             },
                             "properties": "[variables('vnetPropertiesByos')]"
@@ -456,16 +705,75 @@
                         {
                             "type": "Microsoft.CognitiveServices/accounts",
                             "apiVersion": "2017-04-18",
-                            "name": "[parameters('cognitiveServicesFallbackResourceName')]",
-                            "location": "[parameters('cognitiveServicesFallbackResourceRegion')]",
-                            "sku": {
+                            "name": "[parameters('2 - CognitiveServicesResourceName')]",
+                            "location": "[parameters('2 - CognitiveServicesResourceRegion')]",
+                            "sku":
+                            {
                                 "name": "[variables('sku')]"
                             },
                             "kind": "SpeechServices",
                             "tags": "[if(contains(variables('tagValues'), 'Microsoft.CognitiveServices/accounts'), variables('tagValues')['Microsoft.CognitiveServices/accounts'], json('{}'))]",
-                            "identity": {
-                                "tenantId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('cognitiveServicesFallbackResourceName')), '2017-04-18', 'Full').identity.tenantId]",
-                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('cognitiveServicesFallbackResourceName')), '2017-04-18', 'Full').identity.principalId]",
+                            "identity":
+                            {
+                                "tenantId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('2 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.tenantId]",
+                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('2 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
+                                "type": "systemAssigned"
+                            },
+                            "properties": "[variables('vnetPropertiesByos')]"
+                        },
+                        {
+                            "type": "Microsoft.CognitiveServices/accounts",
+                            "apiVersion": "2017-04-18",
+                            "name": "[parameters('3 - CognitiveServicesResourceName')]",
+                            "location": "[parameters('3 - CognitiveServicesResourceRegion')]",
+                            "sku":
+                            {
+                                "name": "[variables('sku')]"
+                            },
+                            "kind": "SpeechServices",
+                            "tags": "[if(contains(variables('tagValues'), 'Microsoft.CognitiveServices/accounts'), variables('tagValues')['Microsoft.CognitiveServices/accounts'], json('{}'))]",
+                            "identity":
+                            {
+                                "tenantId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('3 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.tenantId]",
+                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('3 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
+                                "type": "systemAssigned"
+                            },
+                            "properties": "[variables('vnetPropertiesByos')]"
+                        },
+                        {
+                            "type": "Microsoft.CognitiveServices/accounts",
+                            "apiVersion": "2017-04-18",
+                            "name": "[parameters('4 - CognitiveServicesResourceName')]",
+                            "location": "[parameters('4 - CognitiveServicesResourceRegion')]",
+                            "sku":
+                            {
+                                "name": "[variables('sku')]"
+                            },
+                            "kind": "SpeechServices",
+                            "tags": "[if(contains(variables('tagValues'), 'Microsoft.CognitiveServices/accounts'), variables('tagValues')['Microsoft.CognitiveServices/accounts'], json('{}'))]",
+                            "identity":
+                            {
+                                "tenantId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('4 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.tenantId]",
+                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('4 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
+                                "type": "systemAssigned"
+                            },
+                            "properties": "[variables('vnetPropertiesByos')]"
+                        },
+                        {
+                            "type": "Microsoft.CognitiveServices/accounts",
+                            "apiVersion": "2017-04-18",
+                            "name": "[parameters('5 - CognitiveServicesResourceName')]",
+                            "location": "[parameters('5 - CognitiveServicesResourceRegion')]",
+                            "sku":
+                            {
+                                "name": "[variables('sku')]"
+                            },
+                            "kind": "SpeechServices",
+                            "tags": "[if(contains(variables('tagValues'), 'Microsoft.CognitiveServices/accounts'), variables('tagValues')['Microsoft.CognitiveServices/accounts'], json('{}'))]",
+                            "identity":
+                            {
+                                "tenantId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('5 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.tenantId]",
+                                "principalId": "[reference(concat('Microsoft.CognitiveServices/accounts/', parameters('5 - CognitiveServicesResourceName')), '2017-04-18', 'Full').identity.principalId]",
                                 "type": "systemAssigned"
                             },
                             "properties": "[variables('vnetPropertiesByos')]"
@@ -485,14 +793,15 @@
                 "[concat('Microsoft.Web/sites/', variables('IngestionClientAudioUploadedFunctionName'))]",
                 "[concat('Microsoft.Web/sites/', variables('IngestionClientResultUploadedFunctionName'))]",
                 "[resourceId('Microsoft.KeyVault/vaults', variables('KeyVaultName'))]",
-                "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('KeyVaultName'), variables('CognitiveServicesKeySecretName'))]",
-                "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('KeyVaultName'), variables('CognitiveServicesFallbackKeySecretName'))]",
+                "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('KeyVaultName'), variables('CognitiveServicesKeysSecretName'))]",
                 "[variables('AuthRuleRMK')]",
                 "[variables('AuthRuleAudioUploaded')]"
             ],
-            "properties": {
+            "properties":
+            {
                 "mode": "Incremental",
-                "template": {
+                "template":
+                {
                     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
                     "parameters": {},
@@ -503,23 +812,23 @@
                             "name": "[concat(variables('IngestionClientAudioUploadedFunctionName'), '/AppSettings')]",
                             "apiVersion": "2020-09-01",
                             "location": "[variables('IngestionClientRegion')]",
-                            "tags": {
-                               "displayName": "WebAppSettings"
+                            "tags":
+                            {
+                                "displayName": "WebAppSettings"
                             },
-                            "properties": {
+                            "properties":
+                            {
                                 "APPLICATIONINSIGHTS_CONNECTION_STRING": "[reference(resourceId('Microsoft.Insights/components', variables('AppInsightsName')), '2020-02-02-preview').ConnectionString]",
                                 "FUNCTIONS_EXTENSION_VERSION": "~3",
                                 "FUNCTIONS_WORKER_RUNTIME": "dotnet",
                                 "WEBSITE_RUN_FROM_PACKAGE": "[variables('AudioUploadedFunctionBinary')]",
                                 "AzureServiceBus": "[listKeys(variables('AuthRuleRMK'),'2015-08-01').primaryConnectionString]",
-                                "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageResourceName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
-                                "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageResourceName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
-                                "CognitiveServicesKey": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('CognitiveServicesKeySecretName'), ')')]",
-                                "CognitiveServicesRegion": "[parameters('cognitiveServicesResourceRegion')]",
-                                "CustomModelId": "[parameters('customModelId')]",
-                                "CognitiveServicesFallbackKey": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('CognitiveServicesFallbackKeySecretName'), ')')]",
-                                "CognitiveServicesFallbackRegion": "[parameters('cognitiveServicesFallbackResourceRegion')]",
-                                "FallbackCustomModelId": "[parameters('fallbackCustomModelId')]",
+                                "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('StorageResourceName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
+                                "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('StorageResourceName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
+                                "CognitiveServicesKeys": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('CognitiveServicesKeysSecretName'), ')')]",
+                                "CognitiveServicesRegions": "[concat(parameters('1 - CognitiveServicesResourceRegion'), ';', parameters('2 - CognitiveServicesResourceRegion'), ';', parameters('3 - CognitiveServicesResourceRegion'), ';', parameters('4 - CognitiveServicesResourceRegion'), ';', parameters('5 - CognitiveServicesResourceRegion'))]",
+                                "CustomModelIds": "[concat(parameters('1 - CognitiveServicesModelId'), ';', parameters('2 - CognitiveServicesModelId'), ';', parameters('3 - CognitiveServicesModelId'), ';', parameters('4 - CognitiveServicesModelId'), ';', parameters('5 - CognitiveServicesModelId'))]",
+                                "RequestPercentages": "[concat(parameters('1 - CognitiveServicesRequestPercentage'), ';', parameters('2 - CognitiveServicesRequestPercentage'), ';', parameters('3 - CognitiveServicesRequestPercentage'), ';', parameters('4 - CognitiveServicesRequestPercentage'), ';', parameters('5 - CognitiveServicesRequestPercentage'))]",
                                 "AddDiarization": "[parameters('AddDiarization')]",
                                 "AddWordLevelTimestamps": "[parameters('AddWordLevelTimestamps')]",
                                 "DeleteProcessedAudioFilesFromStorage": "[variables('DeleteProcessedAudioFilesFromStorage')]",
@@ -529,11 +838,9 @@
                                 "AudioInputContainer": "[variables('AudioInputContainer')]",
                                 "AudioFailedContainer": "[variables('AudioFailedContainer')]",
                                 "ErrorReportOutputContainer": "[variables('ErrorReportOutputContainer')]",
-                                "FilesPerTranscriptionJob": "[variables('FilesPerTranscriptionJob')]",
                                 "InitialRetryDelayInMinutes": "[variables('InitialRetryDelayInMinutes')]",
                                 "MaxRetryDelayInMinutes": "[variables('MaxRetryDelayInMinutes')]",
-                                "MessagesPerFunctionExecution": "[variables('MessagesPerFunctionExecution')]",
-                                "Locale": "[parameters('transcriptionLocale')]",
+                                "Locale": "[parameters('TranscriptionLocale')]",
                                 "RetryLimit": "[variables('RetryLimit')]",
                                 "AudioUploadedServiceBusConnectionString": "[listKeys(variables('AuthRuleAudioUploaded'),'2015-08-01').primaryConnectionString]"
                             }
@@ -543,17 +850,19 @@
                             "name": "[concat(variables('IngestionClientResultUploadedFunctionName'), '/AppSettings')]",
                             "apiVersion": "2020-09-01",
                             "location": "[resourceGroup().location]",
-                            "tags": {
+                            "tags":
+                            {
                                 "displayName": "WebAppSettings"
                             },
-                            "properties": {
+                            "properties":
+                            {
                                 "APPLICATIONINSIGHTS_CONNECTION_STRING": "[reference(resourceId('Microsoft.Insights/components', variables('AppInsightsName')), '2020-02-02-preview').ConnectionString]",
                                 "FUNCTIONS_EXTENSION_VERSION": "~3",
                                 "FUNCTIONS_WORKER_RUNTIME": "dotnet",
                                 "WEBSITE_RUN_FROM_PACKAGE": "[variables('ResultUploadedFunctionBinary')]",
                                 "AzureServiceBus": "[listKeys(variables('AuthRuleRMK'),'2015-08-01').primaryConnectionString]",
-                                "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageResourceName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
-                                "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageResourceName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
+                                "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('StorageResourceName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
+                                "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('StorageResourceName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
                                 "AudioInputContainer": "[variables('AudioInputContainer')]",
                                 "AudioFailedContainer": "[variables('AudioFailedContainer')]",
                                 "AudioProcessedContainer": "[variables('AudioProcessedContainer')]",
@@ -561,7 +870,7 @@
                                 "DeleteCustomSpeechArtifacts": "[variables('DeleteCustomSpeechArtifacts')]",
                                 "ErrorReportOutputContainer": "[variables('ErrorReportOutputContainer')]",
                                 "JsonResultOutputContainer": "[variables('JsonResultOutputContainer')]",
-                                "SpeechServicesOutputContainer": "[variables('SpeechServicesOutputContainer')]", 
+                                "SpeechServicesOutputContainer": "[variables('SpeechServicesOutputContainer')]",
                                 "AudioUploadedServiceBusConnectionString": "[listKeys(variables('AuthRuleAudioUploaded'),'2015-08-01').primaryConnectionString]"
                             }
                         }
@@ -573,14 +882,16 @@
         {
             "type": "Microsoft.CognitiveServices/accounts",
             "apiVersion": "2017-04-18",
-            "name": "[parameters('cognitiveServicesResourceName')]",
-            "location": "[parameters('cognitiveServicesResourceRegion')]",
+            "name": "[parameters('1 - CognitiveServicesResourceName')]",
+            "location": "[parameters('1 - CognitiveServicesResourceRegion')]",
             "tags": "[if(contains(variables('tagValues'), 'Microsoft.CognitiveServices/accounts'), variables('tagValues')['Microsoft.CognitiveServices/accounts'], json('{}'))]",
-            "sku": {
+            "sku":
+            {
                 "name": "[variables('sku')]"
             },
             "kind": "SpeechServices",
-            "identity": {
+            "identity":
+            {
                 "type": "systemAssigned"
             },
             "properties": "[variables('vnetProperties')]"
@@ -588,14 +899,67 @@
         {
             "type": "Microsoft.CognitiveServices/accounts",
             "apiVersion": "2017-04-18",
-            "name": "[parameters('cognitiveServicesFallbackResourceName')]",
-            "location": "[parameters('cognitiveServicesFallbackResourceRegion')]",
+            "name": "[parameters('2 - CognitiveServicesResourceName')]",
+            "location": "[parameters('2 - CognitiveServicesResourceRegion')]",
             "tags": "[if(contains(variables('tagValues'), 'Microsoft.CognitiveServices/accounts'), variables('tagValues')['Microsoft.CognitiveServices/accounts'], json('{}'))]",
-            "sku": {
+            "sku":
+            {
                 "name": "[variables('sku')]"
             },
             "kind": "SpeechServices",
-            "identity": {
+            "identity":
+            {
+                "type": "systemAssigned"
+            },
+            "properties": "[variables('vnetProperties')]"
+        },
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2017-04-18",
+            "name": "[parameters('3 - CognitiveServicesResourceName')]",
+            "location": "[parameters('3 - CognitiveServicesResourceRegion')]",
+            "tags": "[if(contains(variables('tagValues'), 'Microsoft.CognitiveServices/accounts'), variables('tagValues')['Microsoft.CognitiveServices/accounts'], json('{}'))]",
+            "sku":
+            {
+                "name": "[variables('sku')]"
+            },
+            "kind": "SpeechServices",
+            "identity":
+            {
+                "type": "systemAssigned"
+            },
+            "properties": "[variables('vnetProperties')]"
+        },
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2017-04-18",
+            "name": "[parameters('4 - CognitiveServicesResourceName')]",
+            "location": "[parameters('4 - CognitiveServicesResourceRegion')]",
+            "tags": "[if(contains(variables('tagValues'), 'Microsoft.CognitiveServices/accounts'), variables('tagValues')['Microsoft.CognitiveServices/accounts'], json('{}'))]",
+            "sku":
+            {
+                "name": "[variables('sku')]"
+            },
+            "kind": "SpeechServices",
+            "identity":
+            {
+                "type": "systemAssigned"
+            },
+            "properties": "[variables('vnetProperties')]"
+        },
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2017-04-18",
+            "name": "[parameters('5 - CognitiveServicesResourceName')]",
+            "location": "[parameters('5 - CognitiveServicesResourceRegion')]",
+            "tags": "[if(contains(variables('tagValues'), 'Microsoft.CognitiveServices/accounts'), variables('tagValues')['Microsoft.CognitiveServices/accounts'], json('{}'))]",
+            "sku":
+            {
+                "name": "[variables('sku')]"
+            },
+            "kind": "SpeechServices",
+            "identity":
+            {
                 "type": "systemAssigned"
             },
             "properties": "[variables('vnetProperties')]"
@@ -605,12 +969,14 @@
             "apiVersion": "2020-02-02-preview",
             "name": "[variables('AppInsightsName')]",
             "location": "[variables('IngestionClientRegion')]",
-            "tags": {
+            "tags":
+            {
                 "applicationType": "web",
                 "applicationName": "TranscriptionInsights"
             },
             "kind": "web",
-            "properties": {
+            "properties":
+            {
                 "Application_Type": "web"
             }
         },
@@ -619,11 +985,13 @@
             "apiVersion": "2018-01-01-preview",
             "name": "[variables('ServiceBusName')]",
             "location": "[variables('IngestionClientRegion')]",
-            "sku": {
+            "sku":
+            {
                 "name": "Standard",
                 "tier": "Standard"
             },
-            "properties": {
+            "properties":
+            {
                 "zoneRedundant": false
             }
         },
@@ -635,7 +1003,8 @@
             "dependsOn": [
                 "[resourceId('Microsoft.ServiceBus/namespaces', variables('ServiceBusName'))]"
             ],
-            "properties": {
+            "properties":
+            {
                 "rights": [
                     "Listen",
                     "Manage",
@@ -651,7 +1020,8 @@
             "dependsOn": [
                 "[resourceId('Microsoft.ServiceBus/namespaces', variables('ServiceBusName'))]"
             ],
-            "properties": {
+            "properties":
+            {
                 "lockDuration": "PT4M",
                 "maxSizeInMegabytes": 5120,
                 "requiresDuplicateDetection": false,
@@ -676,7 +1046,8 @@
                 "[resourceId('Microsoft.ServiceBus/namespaces/queues', variables('ServiceBusName'), variables('AudioUploadedQueueName'))]",
                 "[resourceId('Microsoft.ServiceBus/namespaces', variables('ServiceBusName'))]"
             ],
-            "properties": {
+            "properties":
+            {
                 "rights": [
                     "Listen",
                     "Send"
@@ -691,7 +1062,8 @@
             "dependsOn": [
                 "[resourceId('Microsoft.ServiceBus/namespaces', variables('ServiceBusName'))]"
             ],
-            "properties": {
+            "properties":
+            {
                 "lockDuration": "PT4M",
                 "maxSizeInMegabytes": 5120,
                 "requiresDuplicateDetection": false,
@@ -716,7 +1088,8 @@
                 "[resourceId('Microsoft.ServiceBus/namespaces/queues', variables('ServiceBusName'), 'result_uploaded_queue')]",
                 "[resourceId('Microsoft.ServiceBus/namespaces', variables('ServiceBusName'))]"
             ],
-            "properties": {
+            "properties":
+            {
                 "rights": [
                     "Listen",
                     "Send"
@@ -732,7 +1105,8 @@
                 "[resourceId('Microsoft.Web/sites', variables('IngestionClientAudioUploadedFunctionName'))]",
                 "[resourceId('Microsoft.Web/sites', variables('IngestionClientResultUploadedFunctionName'))]"
             ],
-            "properties": {
+            "properties":
+            {
                 "enabledForDeployment": "true",
                 "enabledForDiskEncryption": "false",
                 "enabledForTemplateDeployment": "false",
@@ -741,7 +1115,8 @@
                     {
                         "objectId": "[reference(resourceId('Microsoft.Web/sites', variables('IngestionClientAudioUploadedFunctionName')), '2019-08-01', 'full').identity.principalId]",
                         "tenantId": "[reference(resourceId('Microsoft.Web/sites', variables('IngestionClientAudioUploadedFunctionName')), '2019-08-01', 'full').identity.tenantId]",
-                        "permissions": {
+                        "permissions":
+                        {
                             "secrets": [
                                 "get",
                                 "list"
@@ -751,7 +1126,8 @@
                     {
                         "objectId": "[reference(resourceId('Microsoft.Web/sites', variables('IngestionClientResultUploadedFunctionName')), '2019-08-01', 'full').identity.principalId]",
                         "tenantId": "[reference(resourceId('Microsoft.Web/sites', variables('IngestionClientResultUploadedFunctionName')), '2019-08-01', 'full').identity.tenantId]",
-                        "permissions": {
+                        "permissions":
+                        {
                             "secrets": [
                                 "get",
                                 "list"
@@ -759,11 +1135,13 @@
                         }
                     }
                 ],
-                "sku": {
+                "sku":
+                {
                     "name": "Standard",
                     "family": "A"
                 },
-                "networkAcls": {
+                "networkAcls":
+                {
                     "defaultAction": "Allow",
                     "bypass": "AzureServices"
                 }
@@ -771,40 +1149,33 @@
         },
         {
             "type": "Microsoft.KeyVault/vaults/secrets",
-            "name": "[concat(variables('KeyVaultName'), '/', variables('CognitiveServicesKeySecretName'))]",
+            "name": "[concat(variables('KeyVaultName'), '/', variables('CognitiveServicesKeysSecretName'))]",
             "apiVersion": "2019-09-01",
             "location": "[variables('IngestionClientRegion')]",
             "dependsOn": [
                 "[concat('Microsoft.KeyVault/vaults/', variables('KeyVaultName'))]",
-                "[concat('Microsoft.CognitiveServices/accounts/', parameters('cognitiveServicesResourceName'))]"
+                "[concat('Microsoft.CognitiveServices/accounts/', parameters('1 - CognitiveServicesResourceName'))]",
+                "[concat('Microsoft.CognitiveServices/accounts/', parameters('2 - CognitiveServicesResourceName'))]",
+                "[concat('Microsoft.CognitiveServices/accounts/', parameters('3 - CognitiveServicesResourceName'))]",
+                "[concat('Microsoft.CognitiveServices/accounts/', parameters('4 - CognitiveServicesResourceName'))]",
+                "[concat('Microsoft.CognitiveServices/accounts/', parameters('5 - CognitiveServicesResourceName'))]"
             ],
-            "properties": {
-                "value": "[listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('cognitiveServicesResourceName')), '2017-04-18').key1]"
-            }
-        },
-        {
-            "type": "Microsoft.KeyVault/vaults/secrets",
-            "name": "[concat(variables('KeyVaultName'), '/', variables('CognitiveServicesFallbackKeySecretName'))]",
-            "apiVersion": "2019-09-01",
-            "location": "[variables('IngestionClientRegion')]",
-            "dependsOn": [
-                "[concat('Microsoft.KeyVault/vaults/', variables('KeyVaultName'))]",
-                "[concat('Microsoft.CognitiveServices/accounts/', parameters('cognitiveServicesFallbackResourceName'))]"
-            ],
-            "properties": {
-                "value": "[listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('cognitiveServicesFallbackResourceName')), '2017-04-18').key1]"
+            "properties":
+            {
+                "value": "[concat(listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('1 - CognitiveServicesResourceName')), '2017-04-18').key1, ';', listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('2 - CognitiveServicesResourceName')), '2017-04-18').key1, ';', listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('3 - CognitiveServicesResourceName')), '2017-04-18').key1, ';', listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('4 - CognitiveServicesResourceName')), '2017-04-18').key1, ';', listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('5 - CognitiveServicesResourceName')), '2017-04-18').key1)]"
             }
         },
         {
             "name": "[variables('EventGridSystemTopicName')]",
             "type": "Microsoft.EventGrid/systemTopics",
             "apiVersion": "2020-04-01-preview",
-            "location": "[parameters('storageResourceRegion')]",
+            "location": "[parameters('StorageResourceRegion')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName'))]"
             ],
-            "properties": {
-                "source": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageResourceName'))]",
+            "properties":
+            {
+                "source": "[resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName'))]",
                 "topicType": "Microsoft.Storage.StorageAccounts"
             }
         },
@@ -816,14 +1187,18 @@
                 "[resourceId('Microsoft.EventGrid/systemTopics', variables('EventGridSystemTopicName'))]",
                 "[resourceId('Microsoft.ServiceBus/namespaces/queues', variables('ServiceBusName'), variables('AudioUploadedQueueName'))]"
             ],
-            "properties": {
-                "destination": {
+            "properties":
+            {
+                "destination":
+                {
                     "endpointType": "ServiceBusQueue",
-                    "properties": {
+                    "properties":
+                    {
                         "resourceId": "[concat('/subscriptions/',subscription().subscriptionId,'/resourceGroups/',resourceGroup().name,'/providers/Microsoft.ServiceBus/namespaces/', variables('ServiceBusName'),'/queues/', variables('AudioUploadedQueueName'))]"
                     }
                 },
-                "filter": {
+                "filter":
+                {
                     "includedEventTypes": [
                         "Microsoft.Storage.BlobCreated"
                     ],
@@ -859,14 +1234,18 @@
                 "[resourceId('Microsoft.EventGrid/systemTopics', variables('EventGridSystemTopicName'))]",
                 "[resourceId('Microsoft.ServiceBus/namespaces/queues', variables('ServiceBusName'), variables('ResultUploadedQueueName'))]"
             ],
-            "properties": {
-                "destination": {
+            "properties":
+            {
+                "destination":
+                {
                     "endpointType": "ServiceBusQueue",
-                    "properties": {
+                    "properties":
+                    {
                         "resourceId": "[concat('/subscriptions/',subscription().subscriptionId,'/resourceGroups/',resourceGroup().name,'/providers/Microsoft.ServiceBus/namespaces/', variables('ServiceBusName'),'/queues/', variables('ResultUploadedQueueName'))]"
                     }
                 },
-                "filter": {
+                "filter":
+                {
                     "includedEventTypes": [
                         "Microsoft.Storage.BlobCreated"
                     ],
@@ -902,7 +1281,8 @@
             "location": "[variables('IngestionClientRegion')]",
             "properties": {},
             "dependsOn": [],
-            "sku": {
+            "sku":
+            {
                 "name": "EP1"
             }
         },
@@ -915,14 +1295,17 @@
                 "[resourceId('Microsoft.Web/serverfarms', variables('AppServicePlanName'))]"
             ],
             "kind": "functionapp",
-            "properties": {
+            "properties":
+            {
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('AppServicePlanName'))]",
                 "httpsOnly": "true",
-                "siteConfig": {
+                "siteConfig":
+                {
                     "use32BitWorkerProcess": false
                 }
             },
-            "identity": {
+            "identity":
+            {
                 "type": "SystemAssigned"
             }
         },
@@ -935,14 +1318,17 @@
                 "[resourceId('Microsoft.Web/serverfarms', variables('AppServicePlanName'))]"
             ],
             "kind": "functionapp",
-            "properties": {
+            "properties":
+            {
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('AppServicePlanName'))]",
                 "httpsOnly": "true",
-                "siteConfig": {
+                "siteConfig":
+                {
                     "use32BitWorkerProcess": false
                 }
             },
-            "identity": {
+            "identity":
+            {
                 "type": "SystemAssigned"
             }
         }

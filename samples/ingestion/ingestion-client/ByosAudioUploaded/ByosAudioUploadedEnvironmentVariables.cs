@@ -6,6 +6,9 @@
 namespace ByosAudioUploaded
 {
     using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
     using Connector;
     using Connector.Constants;
 
@@ -20,10 +23,6 @@ namespace ByosAudioUploaded
         // Azure function custom setup:
         public static readonly bool DeleteProcessedAudioFilesFromStorage = bool.TryParse(Environment.GetEnvironmentVariable(nameof(DeleteProcessedAudioFilesFromStorage), EnvironmentVariableTarget.Process), out DeleteProcessedAudioFilesFromStorage) && DeleteProcessedAudioFilesFromStorage;
 
-        public static readonly int MessagesPerFunctionExecution = int.TryParse(Environment.GetEnvironmentVariable(nameof(MessagesPerFunctionExecution), EnvironmentVariableTarget.Process), out MessagesPerFunctionExecution) ? MessagesPerFunctionExecution.ClampInt(1, Constants.MaxMessagesPerFunctionExecution) : Constants.DefaultMessagesPerFunctionExecution;
-
-        public static readonly int FilesPerTranscriptionJob = int.TryParse(Environment.GetEnvironmentVariable(nameof(FilesPerTranscriptionJob), EnvironmentVariableTarget.Process), out FilesPerTranscriptionJob) ? FilesPerTranscriptionJob.ClampInt(1, Constants.MaxFilesPerTranscriptionJob) : Constants.DefaultFilesPerTranscriptionJob;
-
         public static readonly int RetryLimit = int.TryParse(Environment.GetEnvironmentVariable(nameof(RetryLimit), EnvironmentVariableTarget.Process), out RetryLimit) ? RetryLimit.ClampInt(1, Constants.MaxRetryLimit) : Constants.DefaultRetryLimit;
 
         public static readonly int InitialRetryDelayInMinutes = int.TryParse(Environment.GetEnvironmentVariable(nameof(InitialRetryDelayInMinutes), EnvironmentVariableTarget.Process), out InitialRetryDelayInMinutes) ? InitialRetryDelayInMinutes.ClampInt(0, Constants.MaxInitialRetryDelayInMinutes) : Constants.DefaultInitialRetryDelayInMinutes;
@@ -31,17 +30,13 @@ namespace ByosAudioUploaded
         public static readonly int MaxRetryDelayInMinutes = int.TryParse(Environment.GetEnvironmentVariable(nameof(MaxRetryDelayInMinutes), EnvironmentVariableTarget.Process), out MaxRetryDelayInMinutes) ? MaxRetryDelayInMinutes.ClampInt(0, Constants.MaxInitialRetryDelayInMinutes) : Constants.DefaultMaxRetryDelayInMinutes;
 
         // Cognitive services keys setup:
-        public static readonly string CognitiveServicesKey = Environment.GetEnvironmentVariable(nameof(CognitiveServicesKey), EnvironmentVariableTarget.Process);
+        public static readonly string[] CognitiveServicesKeys = Environment.GetEnvironmentVariable(nameof(CognitiveServicesKeys), EnvironmentVariableTarget.Process).Split(Constants.Delimiter);
 
-        public static readonly string CognitiveServicesRegion = Environment.GetEnvironmentVariable(nameof(CognitiveServicesRegion), EnvironmentVariableTarget.Process);
+        public static readonly string[] CognitiveServicesRegions = Environment.GetEnvironmentVariable(nameof(CognitiveServicesRegions), EnvironmentVariableTarget.Process).Split(Constants.Delimiter);
 
-        public static readonly string CustomModelId = Environment.GetEnvironmentVariable(nameof(CustomModelId), EnvironmentVariableTarget.Process);
+        public static readonly string[] CustomModelIds = Environment.GetEnvironmentVariable(nameof(CustomModelIds), EnvironmentVariableTarget.Process).Split(Constants.Delimiter);
 
-        public static readonly string CognitiveServicesFallbackKey = Environment.GetEnvironmentVariable(nameof(CognitiveServicesFallbackKey), EnvironmentVariableTarget.Process);
-
-        public static readonly string CognitiveServicesFallbackRegion = Environment.GetEnvironmentVariable(nameof(CognitiveServicesFallbackRegion), EnvironmentVariableTarget.Process);
-
-        public static readonly string FallbackCustomModelId = Environment.GetEnvironmentVariable(nameof(FallbackCustomModelId), EnvironmentVariableTarget.Process);
+        public static readonly IEnumerable<int> RequestPercentages = Environment.GetEnvironmentVariable(nameof(RequestPercentages), EnvironmentVariableTarget.Process).Split(Constants.Delimiter).Select(r => int.Parse(r, CultureInfo.InvariantCulture));
 
         public static readonly string Locale = Environment.GetEnvironmentVariable(nameof(Locale), EnvironmentVariableTarget.Process);
 

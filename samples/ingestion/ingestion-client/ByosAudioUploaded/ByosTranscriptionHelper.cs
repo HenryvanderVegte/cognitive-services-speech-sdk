@@ -25,6 +25,8 @@ namespace ByosAudioUploaded
 
         private static readonly QueueClient AudioUploadedQueueClientInstance = new QueueClient(new ServiceBusConnectionStringBuilder(ByosAudioUploadedEnvironmentVariables.AudioUploadedServiceBusConnectionString));
 
+        private static Random Random = new Random();
+
         private readonly ILogger Logger;
 
         private readonly string Locale;
@@ -38,30 +40,22 @@ namespace ByosAudioUploaded
         public async Task StartBatchTranscriptionJobAsync(ServiceBusMessage serviceBusMessage, string jobName)
         {
             serviceBusMessage = serviceBusMessage ?? throw new ArgumentNullException(nameof(serviceBusMessage));
-            var isRetry = serviceBusMessage.RetryCount != 0;
 
-            if (!isRetry)
-            {
-                Logger.LogInformation($"Sending job {jobName} to default region");
+            // Select a random subscription based on the request split percentages defined in the ARM template:
+            var subscriptionIndex = GetRandomSubscriptionIndex();
 
-                await SubmitTranscriptionJob(
-                    serviceBusMessage,
-                    jobName,
-                    ByosAudioUploadedEnvironmentVariables.CognitiveServicesKey,
-                    ByosAudioUploadedEnvironmentVariables.CognitiveServicesRegion,
-                    ByosAudioUploadedEnvironmentVariables.CustomModelId).ConfigureAwait(false);
-            }
-            else
-            {
-                Logger.LogInformation($"Sending job {jobName} to fallback region");
+            var cognitiveServicesKey = ByosAudioUploadedEnvironmentVariables.CognitiveServicesKeys[subscriptionIndex];
+            var cognitiveServicesRegion = ByosAudioUploadedEnvironmentVariables.CognitiveServicesRegions[subscriptionIndex];
+            var cognitiveServicesModelId = ByosAudioUploadedEnvironmentVariables.CustomModelIds[subscriptionIndex];
 
-                await SubmitTranscriptionJob(
-                    serviceBusMessage,
-                    jobName,
-                    ByosAudioUploadedEnvironmentVariables.CognitiveServicesFallbackKey,
-                    ByosAudioUploadedEnvironmentVariables.CognitiveServicesFallbackRegion,
-                    ByosAudioUploadedEnvironmentVariables.FallbackCustomModelId).ConfigureAwait(false);
-            }
+            Logger.LogInformation($"Subscription at index {subscriptionIndex} selected, sending job {jobName} to region {cognitiveServicesRegion}, retry: {serviceBusMessage.RetryCount}");
+
+            await SubmitTranscriptionJob(
+                serviceBusMessage,
+                jobName,
+                cognitiveServicesKey,
+                cognitiveServicesRegion,
+                cognitiveServicesModelId).ConfigureAwait(false);
         }
 
         private static TimeSpan GetMessageDelayTime(int pollingCounter)
@@ -104,6 +98,27 @@ namespace ByosAudioUploaded
             }
 
             return false;
+        }
+
+        private static int GetRandomSubscriptionIndex()
+        {
+            var threshold = Random.Next(100);
+
+            var id = 0;
+            var percentageSum = 0;
+
+            foreach (var requestPercentage in ByosAudioUploadedEnvironmentVariables.RequestPercentages)
+            {
+                percentageSum += requestPercentage;
+                if (threshold < percentageSum)
+                {
+                    return id;
+                }
+
+                id++;
+            }
+
+            return 0;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Catch general exception to ensure that job continues execution even if message is invalid.")]
