@@ -216,6 +216,8 @@
         "AppServicePlanName": "[concat('AppServicePlan-', variables('InstanceId'))]",
         "AzureSpeechServicesKeySecretName": "AzureSpeechServicesKey",
         "TextAnalyticsKeySecretName": "TextAnalyticsKey",
+        "TextAnalyticsKey": "",
+        "TextAnalyticsRegion": "",
         "DatabaseConnectionStringSecretName": "DatabaseConnectionString",
         "PiiCategories": "",
         "PiiMinimumPrecision": "",
@@ -317,7 +319,7 @@
                 "[concat('Microsoft.KeyVault/vaults/', variables('KeyVaultName'))]"
             ],
             "properties": {
-                "value": "[if(empty(parameters('TextAnalyticsKey')), 'NULL', parameters('TextAnalyticsKey'))]"
+                "value": "[if(empty(variables('TextAnalyticsKey')), 'NULL', variables('TextAnalyticsKey'))]"
             }
         },
         {
@@ -881,8 +883,6 @@
             },
           "properties": {
             "APPLICATIONINSIGHTS_CONNECTION_STRING": "[reference(resourceId('Microsoft.Insights/components', variables('AppInsightsName')), '2020-02-02-preview').ConnectionString]",
-            "PiiRedactionSetting": "[parameters('PiiRedaction')]",
-            "SentimentAnalysisSetting": "[parameters('SentimentAnalysis')]",
             "AddDiarization": "[parameters('AddDiarization')]",
             "AddWordLevelTimestamps": "[parameters('AddWordLevelTimestamps')]",
             "RedactPiiAudio": "[parameters('ProjectFrankfurt: RedactPiiAudio')]",
@@ -907,9 +907,9 @@
             "RetryLimit": "[variables('RetryLimit')]",
             "StartTranscriptionServiceBusConnectionString": "[listKeys(variables('AuthRuleCT'),'2015-08-01').primaryConnectionString]",
             "TextAnalyticsKey": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('TextAnalyticsKeySecretName'), ')')]",
-            "TextAnalyticsRegion": "[parameters('TextAnalyticsRegion')]",
+            "TextAnalyticsRegion": "[variables('TextAnalyticsRegion')]",
             "UseSqlDatabase": "[variables('UseSqlDatabase')]",
-            "WEBSITE_RUN_FROM_PACKAGE": "https://mspublicstorage.blob.core.windows.net/ingestion-client-insights/FetchTranscription.zip",
+            "WEBSITE_RUN_FROM_PACKAGE": "https://mspublicstorage.blob.core.windows.net/ingestion-client-insights/09092021.0/FetchTranscription.zip",
             "CreateConsolidatedOutputFiles": "[variables('CreateConsolidatedOutputFiles')]",
             "ConsolidatedFilesOutputContainer": "[variables('ConsolidatedFilesOutputContainer')]",
             "CreateAudioProcessedContainer": "[variables('CreateAudioProcessedContainer')]",
