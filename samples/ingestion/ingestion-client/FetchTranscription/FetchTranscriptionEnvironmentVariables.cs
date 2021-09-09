@@ -14,7 +14,7 @@ namespace FetchTranscriptionFunction
     {
         public static readonly SentimentAnalysisSetting SentimentAnalysisSetting = Enum.TryParse(Environment.GetEnvironmentVariable(nameof(SentimentAnalysisSetting), EnvironmentVariableTarget.Process), out SentimentAnalysisSetting) ? SentimentAnalysisSetting : SentimentAnalysisSetting.None;
 
-        public static readonly EntityRedactionSetting EntityRedactionSetting = Enum.TryParse(Environment.GetEnvironmentVariable(nameof(EntityRedactionSetting), EnvironmentVariableTarget.Process), out EntityRedactionSetting) ? EntityRedactionSetting : EntityRedactionSetting.None;
+        public static readonly PiiRedactionSetting PiiRedactionSetting = Enum.TryParse(Environment.GetEnvironmentVariable(nameof(PiiRedactionSetting), EnvironmentVariableTarget.Process), out PiiRedactionSetting) ? PiiRedactionSetting : PiiRedactionSetting.None;
 
         public static readonly bool AddDiarization = bool.TryParse(Environment.GetEnvironmentVariable(nameof(AddDiarization), EnvironmentVariableTarget.Process), out AddDiarization) && AddDiarization;
 
@@ -63,6 +63,10 @@ namespace FetchTranscriptionFunction
         public static readonly string TextAnalyticsKey = Environment.GetEnvironmentVariable(nameof(TextAnalyticsKey), EnvironmentVariableTarget.Process);
 
         public static readonly string TextAnalyticsRegion = Environment.GetEnvironmentVariable(nameof(TextAnalyticsRegion), EnvironmentVariableTarget.Process);
+
+        public static readonly string PiiCategories = Environment.GetEnvironmentVariable(nameof(PiiCategories), EnvironmentVariableTarget.Process);
+
+        public static readonly string PiiMinimumPrecision = Environment.GetEnvironmentVariable(nameof(PiiMinimumPrecision), EnvironmentVariableTarget.Process);
 
         public static readonly bool CreateConsolidatedOutputFiles = bool.TryParse(Environment.GetEnvironmentVariable(nameof(CreateConsolidatedOutputFiles), EnvironmentVariableTarget.Process), out CreateConsolidatedOutputFiles) && CreateConsolidatedOutputFiles;
 

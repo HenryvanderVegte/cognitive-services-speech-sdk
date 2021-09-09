@@ -244,10 +244,10 @@ namespace FetchTranscriptionFunction
                         additionalErrors.AddRange(sentimentErrors);
                     }
 
-                    if (FetchTranscriptionEnvironmentVariables.EntityRedactionSetting != EntityRedactionSetting.None)
+                    if (FetchTranscriptionEnvironmentVariables.PiiRedactionSetting != PiiRedactionSetting.None)
                     {
-                        var entityRedactionErrors = await textAnalytics.RedactEntitiesAsync(transcriptionResult, FetchTranscriptionEnvironmentVariables.EntityRedactionSetting).ConfigureAwait(false);
-                        additionalErrors.AddRange(entityRedactionErrors);
+                        var piiRedactionErrors = await textAnalytics.RedactPiiAsync(transcriptionResult, FetchTranscriptionEnvironmentVariables.PiiRedactionSetting).ConfigureAwait(false);
+                        textAnalyticsErrors.AddRange(piiRedactionErrors);
                     }
 
                     if (additionalErrors.Any())
@@ -303,7 +303,7 @@ namespace FetchTranscriptionFunction
                         transcriptionResult.CombinedRecognizedPhrases.Count(),
                         serviceBusMessage.UsesCustomModel,
                         FetchTranscriptionEnvironmentVariables.SentimentAnalysisSetting,
-                        FetchTranscriptionEnvironmentVariables.EntityRedactionSetting);
+                        FetchTranscriptionEnvironmentVariables.PiiRedactionSetting);
 
                     var jobId = containsMultipleTranscriptions ? Guid.NewGuid() : new Guid(transcriptionLocation.Split('/').LastOrDefault());
                     var dbConnectionString = FetchTranscriptionEnvironmentVariables.DatabaseConnectionString;
