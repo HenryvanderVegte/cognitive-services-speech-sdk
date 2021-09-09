@@ -247,7 +247,7 @@ namespace FetchTranscriptionFunction
                     if (FetchTranscriptionEnvironmentVariables.PiiRedactionSetting != PiiRedactionSetting.None)
                     {
                         var piiRedactionErrors = await textAnalytics.RedactPiiAsync(transcriptionResult, FetchTranscriptionEnvironmentVariables.PiiRedactionSetting).ConfigureAwait(false);
-                        textAnalyticsErrors.AddRange(piiRedactionErrors);
+                        additionalErrors.AddRange(piiRedactionErrors);
                     }
 
                     if (additionalErrors.Any())
