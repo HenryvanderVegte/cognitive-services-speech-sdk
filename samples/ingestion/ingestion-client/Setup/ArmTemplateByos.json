@@ -1,3 +1,4 @@
+
 {
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
@@ -325,6 +326,26 @@
                 "description": "A value indicating whether word level timestamps are requested."
             }
         },
+        "ClientId":
+        {
+            "type": "SecureString"
+        },
+        "ClientSecret":
+        {
+            "type": "SecureString"
+        },
+        "TokenEndpointUrl":
+        {
+            "type": "String"
+        },
+        "Scope":
+        {
+            "type": "String"
+        },
+        "CallbackBaseUrl":
+        {
+            "type": "String"
+        },
         "StorageResourceName":
         {
             "type": "String"
@@ -434,6 +455,8 @@
         "AppServicePlanName": "[parameters('AppServicePlanResourceName')]",
         "KeyVaultName": "[parameters('KeyVaultResourceName')]",
         "CognitiveServicesKeysSecretName": "CognitiveServicesKeys",
+        "ClientIdSecretName": "ClientId",
+        "ClientSecretSecretName": "ClientSecret",
         "AudioInputContainer": "audio-input",
         "AudioProcessedContainer": "audio-processed",
         "AudioFailedContainer": "audio-failed",
@@ -794,6 +817,8 @@
                 "[concat('Microsoft.Web/sites/', variables('IngestionClientResultUploadedFunctionName'))]",
                 "[resourceId('Microsoft.KeyVault/vaults', variables('KeyVaultName'))]",
                 "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('KeyVaultName'), variables('CognitiveServicesKeysSecretName'))]",
+                "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('KeyVaultName'), variables('ClientIdSecretName'))]",
+                "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('KeyVaultName'), variables('ClientSecretSecretName'))]",
                 "[variables('AuthRuleRMK')]",
                 "[variables('AuthRuleAudioUploaded')]"
             ],
@@ -827,6 +852,11 @@
                                 "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('StorageResourceName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
                                 "CognitiveServicesKeys": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('CognitiveServicesKeysSecretName'), ')')]",
                                 "CognitiveServicesRegions": "[concat(parameters('1 - CognitiveServicesResourceRegion'), ';', parameters('2 - CognitiveServicesResourceRegion'), ';', parameters('3 - CognitiveServicesResourceRegion'), ';', parameters('4 - CognitiveServicesResourceRegion'), ';', parameters('5 - CognitiveServicesResourceRegion'))]",
+                                "ClientId": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('ClientIdSecretName'), ')')]",
+                                "ClientSecret": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('ClientSecretSecretName'), ')')]",
+                                "TokenEndpointUrl": "[parameters('TokenEndpointUrl')]",
+                                "Scope": "[parameters('Scope')]",
+                                "CallbackBaseUrl": "[parameters('CallbackBaseUrl')]",
                                 "CustomModelIds": "[concat(parameters('1 - CognitiveServicesModelId'), ';', parameters('2 - CognitiveServicesModelId'), ';', parameters('3 - CognitiveServicesModelId'), ';', parameters('4 - CognitiveServicesModelId'), ';', parameters('5 - CognitiveServicesModelId'))]",
                                 "RequestPercentages": "[concat(parameters('1 - CognitiveServicesRequestPercentage'), ';', parameters('2 - CognitiveServicesRequestPercentage'), ';', parameters('3 - CognitiveServicesRequestPercentage'), ';', parameters('4 - CognitiveServicesRequestPercentage'), ';', parameters('5 - CognitiveServicesRequestPercentage'))]",
                                 "AddDiarization": "[parameters('AddDiarization')]",
@@ -863,6 +893,11 @@
                                 "AzureServiceBus": "[listKeys(variables('AuthRuleRMK'),'2015-08-01').primaryConnectionString]",
                                 "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('StorageResourceName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
                                 "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('StorageResourceName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('StorageResourceName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]",
+                                "ClientId": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('ClientIdSecretName'), ')')]",
+                                "ClientSecret": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('ClientSecretSecretName'), ')')]",
+                                "TokenEndpointUrl": "[parameters('TokenEndpointUrl')]",
+                                "Scope": "[parameters('Scope')]",
+                                "CallbackBaseUrl": "[parameters('CallbackBaseUrl')]",
                                 "AudioInputContainer": "[variables('AudioInputContainer')]",
                                 "AudioFailedContainer": "[variables('AudioFailedContainer')]",
                                 "AudioProcessedContainer": "[variables('AudioProcessedContainer')]",
@@ -1163,6 +1198,32 @@
             "properties":
             {
                 "value": "[concat(listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('1 - CognitiveServicesResourceName')), '2017-04-18').key1, ';', listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('2 - CognitiveServicesResourceName')), '2017-04-18').key1, ';', listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('3 - CognitiveServicesResourceName')), '2017-04-18').key1, ';', listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('4 - CognitiveServicesResourceName')), '2017-04-18').key1, ';', listKeys(concat(resourceGroup().id,'/providers/','Microsoft.CognitiveServices/accounts/', parameters('5 - CognitiveServicesResourceName')), '2017-04-18').key1)]"
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "name": "[concat(variables('KeyVaultName'), '/', variables('ClientIdSecretName'))]",
+            "apiVersion": "2019-09-01",
+            "location": "[variables('IngestionClientRegion')]",
+            "dependsOn": [
+                "[concat('Microsoft.KeyVault/vaults/', variables('KeyVaultName'))]"
+            ],
+            "properties":
+            {
+                "value": "[parameters('ClientId')]"
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "name": "[concat(variables('KeyVaultName'), '/', variables('ClientSecretSecretName'))]",
+            "apiVersion": "2019-09-01",
+            "location": "[variables('IngestionClientRegion')]",
+            "dependsOn": [
+                "[concat('Microsoft.KeyVault/vaults/', variables('KeyVaultName'))]"
+            ],
+            "properties":
+            {
+                "value": "[parameters('ClientSecret')]"
             }
         },
         {

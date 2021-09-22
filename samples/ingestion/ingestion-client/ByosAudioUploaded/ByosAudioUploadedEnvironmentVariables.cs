@@ -59,5 +59,16 @@ namespace ByosAudioUploaded
         public static readonly string ErrorFilesOutputContainer = Environment.GetEnvironmentVariable(nameof(ErrorFilesOutputContainer), EnvironmentVariableTarget.Process);
 
         public static readonly string ErrorReportOutputContainer = Environment.GetEnvironmentVariable(nameof(ErrorReportOutputContainer), EnvironmentVariableTarget.Process);
+
+        // Callback API configuration:
+        public static readonly string ClientId = Environment.GetEnvironmentVariable(nameof(ClientId), EnvironmentVariableTarget.Process);
+
+        public static readonly string ClientSecret = Environment.GetEnvironmentVariable(nameof(ClientSecret), EnvironmentVariableTarget.Process);
+
+        public static readonly string TokenEndpointUrl = Environment.GetEnvironmentVariable(nameof(TokenEndpointUrl), EnvironmentVariableTarget.Process);
+
+        public static readonly string Scope = Environment.GetEnvironmentVariable(nameof(Scope), EnvironmentVariableTarget.Process);
+
+        public static readonly string CallbackBaseUrl = Environment.GetEnvironmentVariable(nameof(CallbackBaseUrl), EnvironmentVariableTarget.Process);
     }
 }

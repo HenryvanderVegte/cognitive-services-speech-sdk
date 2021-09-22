@@ -28,5 +28,16 @@ namespace ByosResultUploaded
         public static readonly string JsonResultOutputContainer = Environment.GetEnvironmentVariable(nameof(JsonResultOutputContainer), EnvironmentVariableTarget.Process);
 
         public static readonly string SpeechServicesOutputContainer = Environment.GetEnvironmentVariable(nameof(SpeechServicesOutputContainer), EnvironmentVariableTarget.Process);
+
+        // Callback API configuration:
+        public static readonly string ClientId = Environment.GetEnvironmentVariable(nameof(ClientId), EnvironmentVariableTarget.Process);
+
+        public static readonly string ClientSecret = Environment.GetEnvironmentVariable(nameof(ClientSecret), EnvironmentVariableTarget.Process);
+
+        public static readonly string TokenEndpointUrl = Environment.GetEnvironmentVariable(nameof(TokenEndpointUrl), EnvironmentVariableTarget.Process);
+
+        public static readonly string Scope = Environment.GetEnvironmentVariable(nameof(Scope), EnvironmentVariableTarget.Process);
+
+        public static readonly string CallbackBaseUrl = Environment.GetEnvironmentVariable(nameof(CallbackBaseUrl), EnvironmentVariableTarget.Process);
     }
 }

@@ -6,6 +6,7 @@
 namespace ByosResultUploaded
 {
     using System;
+    using System.Net.Http;
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -14,6 +15,15 @@ namespace ByosResultUploaded
 
     public sealed class ByosTranscriptionResultHelper
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1823:Avoid unused private fields", Justification = "Calls for DummyCallbackClient still need to be implemented.")]
+        private static readonly DummyCallbackClient DummyCallbackClient = new DummyCallbackClient(
+            new HttpClient(),
+            ByosResultUploadedEnvironmentVariables.ClientId,
+            ByosResultUploadedEnvironmentVariables.ClientSecret,
+            ByosResultUploadedEnvironmentVariables.Scope,
+            new Uri(ByosResultUploadedEnvironmentVariables.TokenEndpointUrl),
+            new Uri(ByosResultUploadedEnvironmentVariables.CallbackBaseUrl));
+
         private static readonly StorageConnector StorageConnectorInstance = new StorageConnector(ByosResultUploadedEnvironmentVariables.AzureWebJobsStorage);
 
         private readonly ILogger Logger;
@@ -25,6 +35,13 @@ namespace ByosResultUploaded
 
         public async Task ProcessResultFileAsync(string artifactContainerName, string artifactFileName)
         {
+            /***
+             * TODO:
+             * Send status update via DummyCallbackClient: "Result file was received - fileName: {cognitiveServicesRegion}."
+             * Note: file name is NOT the name of the audio file, but the guid of the transcription job + suffix.
+             * (This status update might not be needed)
+             */
+
             var byteResult = await StorageConnectorInstance.DownloadFileFromContainerAsync(artifactContainerName, artifactFileName).ConfigureAwait(false);
             var jsonResult = Encoding.UTF8.GetString(byteResult);
 
@@ -72,6 +89,11 @@ namespace ByosResultUploaded
             var sourceUri = audioFileRoot.GetProperty("source").GetString();
             var audioFileName = StorageConnector.GetFileNameFromUri(new Uri(sourceUri));
 
+            /***
+             * TODO:
+             * Send status update via DummyCallbackClient: "Received transcription - fileName: {fileName}."
+             */
+
             await StorageConnectorInstance.WriteTextFileToBlobAsync(
                 transcriptionJson,
                 ByosResultUploadedEnvironmentVariables.JsonResultOutputContainer,
@@ -114,6 +136,11 @@ namespace ByosResultUploaded
 
                     var combinedErrorMessage = $"Transcription {fileName} in container {containerName} failed with error \"{errorMessage}\" ({errorKind}).";
                     Logger.LogWarning(combinedErrorMessage);
+
+                    /***
+                     * TODO:
+                     * Send status update via DummyCallbackClient: "Audio file failed - fileName: {fileName}, error: {errorMessage}."
+                     */
 
                     await StorageConnectorInstance.WriteTextFileToBlobAsync(
                         combinedErrorMessage,

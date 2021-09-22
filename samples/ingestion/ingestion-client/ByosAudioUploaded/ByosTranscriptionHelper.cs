@@ -10,6 +10,7 @@ namespace ByosAudioUploaded
     using System.Globalization;
     using System.Linq;
     using System.Net;
+    using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
     using Connector;
@@ -21,6 +22,15 @@ namespace ByosAudioUploaded
 
     public sealed class ByosTranscriptionHelper
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1823:Avoid unused private fields", Justification = "Calls for DummyCallbackClient still need to be implemented.")]
+        private static readonly DummyCallbackClient DummyCallbackClient = new DummyCallbackClient(
+            new HttpClient(),
+            ByosAudioUploadedEnvironmentVariables.ClientId,
+            ByosAudioUploadedEnvironmentVariables.ClientSecret,
+            ByosAudioUploadedEnvironmentVariables.Scope,
+            new Uri(ByosAudioUploadedEnvironmentVariables.TokenEndpointUrl),
+            new Uri(ByosAudioUploadedEnvironmentVariables.CallbackBaseUrl));
+
         private static readonly StorageConnector StorageConnectorInstance = new StorageConnector(ByosAudioUploadedEnvironmentVariables.AzureWebJobsStorage);
 
         private static readonly QueueClient AudioUploadedQueueClientInstance = new QueueClient(new ServiceBusConnectionStringBuilder(ByosAudioUploadedEnvironmentVariables.AudioUploadedServiceBusConnectionString));
@@ -37,7 +47,7 @@ namespace ByosAudioUploaded
             Locale = ByosAudioUploadedEnvironmentVariables.Locale.Split('|')[0].Trim();
         }
 
-        public async Task StartBatchTranscriptionJobAsync(ServiceBusMessage serviceBusMessage, string jobName)
+        public async Task StartBatchTranscriptionJobAsync(ServiceBusMessage serviceBusMessage, string fileName)
         {
             serviceBusMessage = serviceBusMessage ?? throw new ArgumentNullException(nameof(serviceBusMessage));
 
@@ -48,11 +58,16 @@ namespace ByosAudioUploaded
             var cognitiveServicesRegion = ByosAudioUploadedEnvironmentVariables.CognitiveServicesRegions[subscriptionIndex];
             var cognitiveServicesModelId = ByosAudioUploadedEnvironmentVariables.CustomModelIds[subscriptionIndex];
 
-            Logger.LogInformation($"Subscription at index {subscriptionIndex} selected, sending job {jobName} to region {cognitiveServicesRegion}, retry: {serviceBusMessage.RetryCount}");
+            Logger.LogInformation($"Subscription at index {subscriptionIndex} selected, sending job {fileName} to region {cognitiveServicesRegion}, retry: {serviceBusMessage.RetryCount}");
+
+            /***
+             * TODO:
+             * Send status update via DummyCallbackClient: "Audio file was picked up by Ingestion Client - region: {cognitiveServicesRegion}."
+             */
 
             await SubmitTranscriptionJob(
                 serviceBusMessage,
-                jobName,
+                fileName,
                 cognitiveServicesKey,
                 cognitiveServicesRegion,
                 cognitiveServicesModelId).ConfigureAwait(false);
@@ -155,6 +170,11 @@ namespace ByosAudioUploaded
                     hostName,
                     cognitiveServicesKey).ConfigureAwait(false);
 
+                /***
+                 * TODO:
+                 * Send status update via DummyCallbackClient: "Audio file was successfully sent to speech service - location: {transcriptionLocation}."
+                 */
+
                 Logger.LogInformation($"Submitted audio files {string.Join(", ", audioFileInfos.Select(a => StorageConnector.GetFileNameFromUri(new Uri(a.FileUrl))))} in transcription job: {transcriptionLocation}");
             }
             catch (Exception exception)
@@ -180,6 +200,12 @@ namespace ByosAudioUploaded
                 serviceBusMessage.RetryCount += 1;
                 var messageDelay = GetMessageDelayTime(serviceBusMessage.RetryCount);
                 var newMessage = new Message(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(serviceBusMessage)));
+
+                /***
+                 * TODO:
+                 * Send status update via DummyCallbackClient: "Audio file failed, retrying... - error: {errorMessage}."
+                 */
+
                 await ServiceBusUtilities.SendServiceBusMessageAsync(AudioUploadedQueueClientInstance, newMessage, Logger, messageDelay).ConfigureAwait(false);
             }
             else
@@ -188,6 +214,12 @@ namespace ByosAudioUploaded
                 var errorFileName = fileName + ".txt";
                 var retryExceededErrorMessage = $"Exceeded retry count for transcription {fileName} with error message {errorMessage}.";
                 Logger.LogError(retryExceededErrorMessage);
+
+                /***
+                 * TODO:
+                 * Send status update via DummyCallbackClient: "Audio file failed, no more retrying - error: {errorMessage}."
+                 */
+
                 await ProcessFailedFileAsync(fileName, errorMessage, errorFileName).ConfigureAwait(false);
             }
         }
