@@ -491,8 +491,8 @@
         "RetryLimit": 4,
         "InitialRetryDelayInMinutes": 2,
         "MaxRetryDelayInMinutes": 16,
-        "AudioUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/21042022.0/ByosAudioUploaded.zip",
-        "ResultUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/21042022.0/ByosResultUploaded.zip"
+        "AudioUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/21042022.1/ByosAudioUploaded.zip",
+        "ResultUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/21042022.1/ByosResultUploaded.zip"
     },
     "resources": [
         {
