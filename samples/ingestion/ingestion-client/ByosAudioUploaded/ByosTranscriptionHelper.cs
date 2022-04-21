@@ -197,7 +197,9 @@ namespace ByosAudioUploaded
             }
             catch (JsonReaderException exception)
             {
-                await WriteFailedJobLogToStorageAsync(serviceBusMessage, $"Json reader exception {exception} in job {jobName}: {exception.Message}", jobName).ConfigureAwait(false);
+                var message = $"Json reader exception {exception} in job {jobName}: {exception.Message}";
+                Logger.LogError(message);
+                await WriteFailedJobLogToStorageAsync(serviceBusMessage, message, jobName).ConfigureAwait(false);
             }
             catch (Exception exception)
             {
