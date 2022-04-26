@@ -51,6 +51,8 @@ namespace ByosAudioUploaded
 
         public static readonly string TranscriptionTimeToLive = Environment.GetEnvironmentVariable(nameof(TranscriptionTimeToLive), EnvironmentVariableTarget.Process);
 
+        public static readonly string CustomProperties = Environment.GetEnvironmentVariable(nameof(CustomProperties), EnvironmentVariableTarget.Process);
+
         // Storage configuration:
         public static readonly string AudioInputContainer = Environment.GetEnvironmentVariable(nameof(AudioInputContainer), EnvironmentVariableTarget.Process);
 

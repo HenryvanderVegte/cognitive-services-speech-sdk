@@ -19,6 +19,7 @@ namespace ByosAudioUploaded
     using Microsoft.Extensions.Logging;
     using Microsoft.WindowsAzure.Storage;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     public sealed class ByosTranscriptionHelper
     {
@@ -163,7 +164,24 @@ namespace ByosAudioUploaded
                     modelIdentity = ModelIdentity.Create(cognitiveServicesRegion, customModelGuid);
                 }
 
-                var transcriptionDefinition = TranscriptionDefinition.Create(jobName, "StartByTimerTranscription", Locale, sasUrls, properties, modelIdentity);
+                var customProperties = new Dictionary<string, string>();
+
+                if (!string.IsNullOrEmpty(ByosAudioUploadedEnvironmentVariables.CustomProperties))
+                {
+                    var customPropertiesJson = JObject.Parse(ByosAudioUploadedEnvironmentVariables.CustomProperties);
+
+                    foreach (var customProperty in customPropertiesJson)
+                    {
+                        customProperties.Add(customProperty.Key, customProperty.Value.ToObject<string>());
+                    }
+                }
+
+                if (customProperties.Any())
+                {
+                    Logger.LogInformation($"Set custom properties: {string.Join(", ", customProperties.Keys)}");
+                }
+
+                var transcriptionDefinition = TranscriptionDefinition.Create(jobName, "StartByTimerTranscription", Locale, sasUrls, properties, customProperties, modelIdentity);
 
                 var transcriptionLocation = await BatchClient.PostTranscriptionAsync(
                     transcriptionDefinition,
@@ -176,6 +194,12 @@ namespace ByosAudioUploaded
                  */
 
                 Logger.LogInformation($"Submitted audio files {string.Join(", ", audioFileInfos.Select(a => StorageConnector.GetFileNameFromUri(new Uri(a.FileUrl))))} in transcription job: {transcriptionLocation}");
+            }
+            catch (JsonReaderException exception)
+            {
+                var message = $"Json reader exception {exception} in job {jobName}: {exception.Message}";
+                Logger.LogError(message);
+                await WriteFailedJobLogToStorageAsync(serviceBusMessage, message, jobName).ConfigureAwait(false);
             }
             catch (Exception exception)
             {

@@ -16,6 +16,7 @@ namespace Connector
             string locale,
             IEnumerable<string> contentUrls,
             Dictionary<string, string> properties,
+            Dictionary<string, string> customProperties,
             ModelIdentity model)
         {
             DisplayName = name;
@@ -24,6 +25,7 @@ namespace Connector
             Locale = locale;
             Model = model;
             Properties = properties;
+            CustomProperties = customProperties;
         }
 
         public string DisplayName { get; set; }
@@ -38,15 +40,18 @@ namespace Connector
 
         public IDictionary<string, string> Properties { get; }
 
+        public IDictionary<string, string> CustomProperties { get; }
+
         public static TranscriptionDefinition Create(
             string name,
             string description,
             string locale,
             string contentUrl,
             Dictionary<string, string> properties,
+            Dictionary<string, string> customProperties,
             ModelIdentity model)
         {
-            return new TranscriptionDefinition(name, description, locale, new[] { contentUrl }.ToList(), properties, model);
+            return new TranscriptionDefinition(name, description, locale, new[] { contentUrl }.ToList(), properties, customProperties, model);
         }
 
         public static TranscriptionDefinition Create(
@@ -55,9 +60,10 @@ namespace Connector
             string locale,
             IEnumerable<string> contentUrls,
             Dictionary<string, string> properties,
+            Dictionary<string, string> customProperties,
             ModelIdentity model)
         {
-            return new TranscriptionDefinition(name, description, locale, contentUrls, properties, model);
+            return new TranscriptionDefinition(name, description, locale, contentUrls, properties, customProperties, model);
         }
     }
 }

@@ -326,6 +326,15 @@
                 "description": "A value indicating whether word level timestamps are requested."
             }
         },
+        "CustomProperties":
+        {
+            "defaultValue": "",
+            "type": "String",
+            "metadata":
+            {
+                "description": "The custom properties as json (like {\"Key1\": \"Value1\", \"Key2\": \"Value2\"}). No nested properties allowed."
+            }
+        },
         "ClientId":
         {
             "type": "SecureString"
@@ -454,6 +463,7 @@
         "IngestionClientRegion": "[resourceGroup().location]",
         "AppServicePlanName": "[parameters('AppServicePlanResourceName')]",
         "KeyVaultName": "[parameters('KeyVaultResourceName')]",
+        "CustomProperties": "[parameters('CustomProperties')]",
         "CognitiveServicesKeysSecretName": "CognitiveServicesKeys",
         "ClientIdSecretName": "ClientId",
         "ClientSecretSecretName": "ClientSecret",
@@ -481,8 +491,8 @@
         "RetryLimit": 4,
         "InitialRetryDelayInMinutes": 2,
         "MaxRetryDelayInMinutes": 16,
-        "AudioUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/30082021.1/ByosAudioUploaded.zip",
-        "ResultUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/30082021.1/ByosResultUploaded.zip"
+        "AudioUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/21042022.1/ByosAudioUploaded.zip",
+        "ResultUploadedFunctionBinary": "https://mspublicstorage.blob.core.windows.net/ingestion-client-byos/21042022.1/ByosResultUploaded.zip"
     },
     "resources": [
         {
@@ -861,6 +871,7 @@
                                 "RequestPercentages": "[concat(parameters('1 - CognitiveServicesRequestPercentage'), ';', parameters('2 - CognitiveServicesRequestPercentage'), ';', parameters('3 - CognitiveServicesRequestPercentage'), ';', parameters('4 - CognitiveServicesRequestPercentage'), ';', parameters('5 - CognitiveServicesRequestPercentage'))]",
                                 "AddDiarization": "[parameters('AddDiarization')]",
                                 "AddWordLevelTimestamps": "[parameters('AddWordLevelTimestamps')]",
+                                "CustomProperties": "[variables('CustomProperties')]",
                                 "DeleteProcessedAudioFilesFromStorage": "[variables('DeleteProcessedAudioFilesFromStorage')]",
                                 "ProfanityFilterMode": "[parameters('ProfanityFilterMode')]",
                                 "PunctuationMode": "[parameters('PunctuationMode')]",
