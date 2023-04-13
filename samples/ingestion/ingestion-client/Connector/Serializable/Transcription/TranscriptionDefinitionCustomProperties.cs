@@ -5,12 +5,15 @@
 
 namespace Connector
 {
+    using Newtonsoft.Json;
+
     public class TranscriptionDefinitionCustomProperties
     {
         public TranscriptionDefinitionCustomProperties()
         {
         }
 
+        [JsonProperty("dominantLidEnabled")]
         public string DominantLidEnabled { get; set; }
     }
 }
