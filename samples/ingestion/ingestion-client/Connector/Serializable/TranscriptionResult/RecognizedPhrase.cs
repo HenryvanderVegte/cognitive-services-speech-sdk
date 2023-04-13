@@ -45,5 +45,8 @@ namespace Connector
 
         [JsonProperty("nBest")]
         public IEnumerable<NBest> NBest { get; set; }
+
+        [JsonProperty("locale")]
+        public string Locale { get; }
     }
 }

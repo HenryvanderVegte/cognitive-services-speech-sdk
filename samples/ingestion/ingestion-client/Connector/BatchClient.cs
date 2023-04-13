@@ -19,7 +19,7 @@ namespace Connector
 
     public static class BatchClient
     {
-        private const string TranscriptionsBasePath = "speechtotext/v3.0/Transcriptions/";
+        private const string TranscriptionsBasePath = "speechtotext/v3.1/Transcriptions/";
 
         private const int MaxNumberOfRetries = 3;
 

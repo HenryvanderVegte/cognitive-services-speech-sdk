@@ -42,12 +42,12 @@ namespace StartTranscriptionByTimer
 
         private readonly ILogger logger;
 
-        private readonly string locale;
+        private readonly IEnumerable<string> locales;
 
         public StartTranscriptionHelper(ILogger logger)
         {
             this.logger = logger;
-            this.locale = StartTranscriptionEnvironmentVariables.Locale.Split('|')[0].Trim();
+            this.locales = StartTranscriptionEnvironmentVariables.CandidateLocales.Trim().Split(',').ToList();
         }
 
         public async Task StartTranscriptionsAsync(IEnumerable<ServiceBusReceivedMessage> messages, ServiceBusReceiver messageReceiver, DateTime startDateTime)
@@ -60,7 +60,7 @@ namespace StartTranscriptionByTimer
             var chunkedMessages = new List<List<ServiceBusReceivedMessage>>();
             var messageCount = messages.Count();
 
-            for (int i = 0; i < messageCount; i += this.filesPerTranscriptionJob)
+            for (var i = 0; i < messageCount; i += this.filesPerTranscriptionJob)
             {
                 var chunk = messages.Skip(i).Take(Math.Min(this.filesPerTranscriptionJob, messageCount - i)).ToList();
                 chunkedMessages.Add(chunk);
@@ -177,6 +177,10 @@ namespace StartTranscriptionByTimer
 
             try
             {
+                var customProperties = new TranscriptionDefinitionCustomProperties
+                {
+                    DominantLidEnabled = "True"
+                };
                 var properties = this.GetTranscriptionPropertyBag();
 
                 // only needed to make sure we do not add the same uri twice:
@@ -216,7 +220,7 @@ namespace StartTranscriptionByTimer
                     modelIdentity = new ModelIdentity($"{StartTranscriptionEnvironmentVariables.AzureSpeechServicesEndpointUri}speechtotext/v3.0/models/{customModelId}");
                 }
 
-                var transcriptionDefinition = TranscriptionDefinition.Create(jobName, "StartByTimerTranscription", this.locale, audioUrls, properties, modelIdentity);
+                var transcriptionDefinition = TranscriptionDefinition.Create(jobName, "StartByTimerTranscription", this.locales, audioUrls, properties, customProperties, modelIdentity);
 
                 var transcriptionLocation = await BatchClient.PostTranscriptionAsync(
                     transcriptionDefinition,
@@ -228,7 +232,7 @@ namespace StartTranscriptionByTimer
                 var transcriptionMessage = new TranscriptionStartedMessage(
                     transcriptionLocation.AbsoluteUri,
                     jobName,
-                    this.locale,
+                    this.locales,
                     modelIdentity != null,
                     audioFileInfos,
                     0,
@@ -309,25 +313,25 @@ namespace StartTranscriptionByTimer
             }
         }
 
-        private Dictionary<string, string> GetTranscriptionPropertyBag()
+        private TranscriptionDefinitionProperties GetTranscriptionPropertyBag()
         {
-            var properties = new Dictionary<string, string>();
-
-            var profanityFilterMode = StartTranscriptionEnvironmentVariables.ProfanityFilterMode;
-            properties.Add("ProfanityFilterMode", profanityFilterMode);
-            this.logger.LogInformation($"Setting profanity filter mode to {profanityFilterMode}");
+            var properties = new TranscriptionDefinitionProperties
+            {
+                ProfanityFilterMode = StartTranscriptionEnvironmentVariables.ProfanityFilterMode
+            };
+            this.logger.LogInformation($"Setting profanity filter mode to {StartTranscriptionEnvironmentVariables.ProfanityFilterMode}");
 
             var punctuationMode = StartTranscriptionEnvironmentVariables.PunctuationMode;
             punctuationMode = punctuationMode.Replace(" ", string.Empty, StringComparison.Ordinal);
-            properties.Add("PunctuationMode", punctuationMode);
+            properties.PunctuationMode = punctuationMode;
             this.logger.LogInformation($"Setting punctuation mode to {punctuationMode}");
 
             var addDiarization = StartTranscriptionEnvironmentVariables.AddDiarization;
-            properties.Add("DiarizationEnabled", addDiarization.ToString(CultureInfo.InvariantCulture));
+            properties.DiarizationEnabled = addDiarization.ToString(CultureInfo.InvariantCulture);
             this.logger.LogInformation($"Setting diarization enabled to {addDiarization}");
 
             var addWordLevelTimestamps = StartTranscriptionEnvironmentVariables.AddWordLevelTimestamps;
-            properties.Add("WordLevelTimestampsEnabled", addWordLevelTimestamps.ToString(CultureInfo.InvariantCulture));
+            properties.WordLevelTimestampsEnabled = addWordLevelTimestamps.ToString(CultureInfo.InvariantCulture);
             this.logger.LogInformation($"Setting word level timestamps enabled to {addWordLevelTimestamps}");
 
             return properties;
