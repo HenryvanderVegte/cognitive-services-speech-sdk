@@ -5,6 +5,7 @@
 
 namespace Connector
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -13,17 +14,24 @@ namespace Connector
         private TranscriptionDefinition(
             string name,
             string description,
-            string locale,
+            IEnumerable<string> candidateLocales,
             IEnumerable<string> contentUrls,
-            Dictionary<string, string> properties,
+            TranscriptionDefinitionProperties properties,
+            TranscriptionDefinitionCustomProperties customProperties,
             ModelIdentity model)
         {
+            _ = properties ?? throw new ArgumentNullException(nameof(properties));
+
             this.DisplayName = name;
             this.Description = description;
             this.ContentUrls = contentUrls;
-            this.Locale = locale;
             this.Model = model;
+            this.Locale = candidateLocales.First();
+
+            properties.LanguageIdentification = new TranscriptionDefinitionPropertiesLanguageIdentification(candidateLocales);
             this.Properties = properties;
+
+            this.CustomProperties = customProperties;
         }
 
         public string DisplayName { get; set; }
@@ -36,28 +44,32 @@ namespace Connector
 
         public ModelIdentity Model { get; set; }
 
-        public IDictionary<string, string> Properties { get; }
+        public TranscriptionDefinitionProperties Properties { get; }
+
+        public TranscriptionDefinitionCustomProperties CustomProperties { get; }
 
         public static TranscriptionDefinition Create(
             string name,
             string description,
-            string locale,
+            IEnumerable<string> candidateLocales,
             string contentUrl,
-            Dictionary<string, string> properties,
+            TranscriptionDefinitionProperties properties,
+            TranscriptionDefinitionCustomProperties customProperties,
             ModelIdentity model)
         {
-            return new TranscriptionDefinition(name, description, locale, new[] { contentUrl }.ToList(), properties, model);
+            return new TranscriptionDefinition(name, description, candidateLocales, new[] { contentUrl }.ToList(), properties, customProperties, model);
         }
 
         public static TranscriptionDefinition Create(
             string name,
             string description,
-            string locale,
+            IEnumerable<string> candidateLocales,
             IEnumerable<string> contentUrls,
-            Dictionary<string, string> properties,
+            TranscriptionDefinitionProperties properties,
+            TranscriptionDefinitionCustomProperties customProperties,
             ModelIdentity model)
         {
-            return new TranscriptionDefinition(name, description, locale, contentUrls, properties, model);
+            return new TranscriptionDefinition(name, description, candidateLocales, contentUrls, properties, customProperties, model);
         }
     }
 }

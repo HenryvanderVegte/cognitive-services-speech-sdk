@@ -324,9 +324,9 @@ namespace FetchTranscriptionFunction
                 && !string.IsNullOrEmpty(textAnalyticsRegion)
                 && !textAnalyticsRegion.Equals("none", StringComparison.OrdinalIgnoreCase);
 
-            var conversationsAnalysisProvider = textAnalyticsInfoProvided ? new AnalyzeConversationsProvider(serviceBusMessage.Locale, textAnalyticsKey, textAnalyticsRegion, log) : null;
+            var conversationsAnalysisProvider = textAnalyticsInfoProvided ? new AnalyzeConversationsProvider(serviceBusMessage.Locales.First(), textAnalyticsKey, textAnalyticsRegion, log) : null;
 
-            var textAnalyticsProvider = textAnalyticsInfoProvided ? new TextAnalyticsProvider(serviceBusMessage.Locale, textAnalyticsKey, textAnalyticsRegion, log) : null;
+            var textAnalyticsProvider = textAnalyticsInfoProvided ? new TextAnalyticsProvider(serviceBusMessage.Locales.First(), textAnalyticsKey, textAnalyticsRegion, log) : null;
 
             // Check if there is a text analytics request already running:
             var containsTextAnalyticsRequest = serviceBusMessage.AudioFileInfos.Where(audioFileInfo => audioFileInfo.TextAnalyticsRequests != null).Any();
@@ -562,7 +562,7 @@ namespace FetchTranscriptionFunction
                     {
                         await this.databaseContext.StoreTranscriptionAsync(
                             jobId,
-                            serviceBusMessage.Locale,
+                            serviceBusMessage.Locales.First(),
                             string.IsNullOrEmpty(fileName) ? jobName : fileName,
                             (float)approximatedCost,
                             speechTranscript).ConfigureAwait(false);

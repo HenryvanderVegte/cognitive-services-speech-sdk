@@ -8,48 +8,12 @@
                 "description": "The name of the storage account. It must be unique across all existing storage account names in Azure, between 3 and 24 characters long, and can contain only lowercase letters and numbers."
             }
         },
-        "Locale": {
-            "defaultValue": "en-US | English (United States)",
+        "CandidateLocales": {
+            "defaultValue": "en-US,de-DE",
             "type": "String",
-            "allowedValues": [
-                "ar-BH | Arabic (Bahrain)",
-                "ar-EG | Arabic (Egypt)",
-                "ar-SY | Arabic (Syria)",
-                "ca-ES | Catalan",
-                "da-DK | Danish (Denmark)",
-                "de-DE | German (Germany)",
-                "en-AU | English (Australia)",
-                "en-CA | English (Canada)",
-                "en-GB | English (United Kingdom)",
-                "en-IN | English (India)",
-                "en-NZ | English (New Zealand)",
-                "en-US | English (United States)",
-                "es-ES | Spanish (Spain)",
-                "es-MX | Spanish (Mexico)",
-                "fi-FI | Finnish (Finland)",
-                "fr-CA | French (Canada)",
-                "fr-FR | French (France)",
-                "gu-IN | Gujarati (Indian)",
-                "hi-IN | Hindi (India)",
-                "it-IT | Italian (Italy)",
-                "ja-JP | Japanese (Japan)",
-                "ko-KR | Korean (Korea)",
-                "mr-IN | Marathi (India)",
-                "nb-NO | Norwegian (Bokmål)",
-                "nl-NL | Dutch (Netherlands)",
-                "pl-PL | Polish (Poland)",
-                "pt-BR | Portuguese (Brazil)",
-                "pt-PT | Portuguese (Portugal)",
-                "ru-RU | Russian (Russia)",
-                "sv-SE | Swedish (Sweden)",
-                "ta-IN | Tamil (India)",
-                "te-IN | Telugu (India)",
-                "th-TH | Thai (Thailand)",
-                "tr-TR | Turkish (Turkey)",
-                "zh-CN | Chinese (Mandarin, simplified)",
-                "zh-HK | Chinese (Cantonese, Traditional)",
-                "zh-TW | Chinese (Taiwanese Mandarin)"
-            ]
+            "metadata": {
+                "description": "The candidate locales for Language Identification, comma-separated"
+            }
         },
         "CustomModelId": {
             "defaultValue": "",
@@ -227,7 +191,7 @@
         }
     },
     "variables": {
-        "Version": "v2.0.5",
+        "Version": "v2.0.5-dominantLid-1",
         "AudioInputContainer": "audio-input",
         "AudioProcessedContainer": "audio-processed",
         "ErrorFilesOutputContainer": "audio-failed",
@@ -240,10 +204,10 @@
         "TimerBasedExecution": true,
         "CreateAudioProcessedContainer": true,
         "IsByosEnabledSubscription": false,
-        "MessagesPerFunctionExecution": 1000,
-        "FilesPerTranscriptionJob": 100,
+        "MessagesPerFunctionExecution": 100,
+        "FilesPerTranscriptionJob": 1,
         "RetryLimit": 4,
-        "InitialPollingDelayInMinutes": 2,
+        "InitialPollingDelayInMinutes": 1,
         "MaxPollingDelayInMinutes": 180,
         "InstanceId": "[parameters('DeploymentId')]",
         "StorageAccountName": "[parameters('StorageAccount')]",
@@ -273,7 +237,7 @@
         "IsAzureGovDeployment": "[or(equals(parameters('AzureSpeechServicesRegion'),'usgovarizona'), equals(parameters('AzureSpeechServicesRegion'),'usgovvirginia'))]",
         "AzureSpeechServicesEndpointUri": "[if(not(equals(parameters('CustomEndpoint'),'')), parameters('CustomEndpoint'), if(variables('IsAzureGovDeployment'), concat('https://', parameters('AzureSpeechServicesRegion') ,'.api.cognitive.microsoft.us/'), concat('https://', parameters('AzureSpeechServicesRegion') ,'.api.cognitive.microsoft.com/')))]",
         "EndpointSuffix": "[if(variables('IsAzureGovDeployment'),'core.usgovcloudapi.net','core.windows.net')]",
-        "BinariesRoutePrefix": "https://github.com/Azure-Samples/cognitive-services-speech-sdk/releases/download/ingestion-",
+        "BinariesRoutePrefix": "https://github.com/HenryvanderVegte/cognitive-services-speech-sdk/releases/download/ingestion-",
         "StartTranscriptionByTimerBinary": "[concat(variables('BinariesRoutePrefix'), variables('Version'), '/StartTranscriptionByTimer.zip')]",
         "StartTranscriptionByServiceBusBinary": "[concat(variables('BinariesRoutePrefix'), variables('Version'), '/StartTranscriptionByServiceBus.zip')]",
         "FetchTranscriptionBinary": "[concat(variables('BinariesRoutePrefix'), variables('Version'), '/FetchTranscription.zip')]"
@@ -864,7 +828,7 @@
                 "IsAzureGovDeployment": "[variables('IsAzureGovDeployment')]",
                 "IsByosEnabledSubscription": "[variables('IsByosEnabledSubscription')]",
                 "MaxPollingDelayInMinutes": "[variables('MaxPollingDelayInMinutes')]",
-                "Locale": "[parameters('Locale')]",
+                "CandidateLocales": "[parameters('CandidateLocales')]",
                 "MessagesPerFunctionExecution": "[variables('MessagesPerFunctionExecution')]",
                 "ProfanityFilterMode": "[parameters('ProfanityFilterMode')]",
                 "PunctuationMode": "[parameters('PunctuationMode')]",

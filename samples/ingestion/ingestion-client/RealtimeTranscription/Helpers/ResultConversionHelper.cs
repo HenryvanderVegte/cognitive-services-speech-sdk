@@ -49,7 +49,8 @@ namespace RealtimeTranscription
                  XmlConvert.ToString(TimeSpan.FromTicks(r.Duration)),
                  r.Offset,
                  r.Duration,
-                 r.NBest));
+                 r.NBest,
+                 null));
 
             logger.LogInformation("Creating speech transcript from realtime results");
             return new SpeechTranscript(

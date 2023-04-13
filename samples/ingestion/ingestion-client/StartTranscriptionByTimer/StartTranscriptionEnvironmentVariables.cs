@@ -48,7 +48,7 @@ namespace StartTranscriptionByTimer
 
         public static readonly string FetchTranscriptionServiceBusConnectionString = Environment.GetEnvironmentVariable(nameof(FetchTranscriptionServiceBusConnectionString), EnvironmentVariableTarget.Process);
 
-        public static readonly string Locale = Environment.GetEnvironmentVariable(nameof(Locale), EnvironmentVariableTarget.Process);
+        public static readonly string CandidateLocales = Environment.GetEnvironmentVariable(nameof(CandidateLocales), EnvironmentVariableTarget.Process);
 
         public static readonly string ProfanityFilterMode = Environment.GetEnvironmentVariable(nameof(ProfanityFilterMode), EnvironmentVariableTarget.Process);
 

@@ -15,7 +15,7 @@ namespace Connector
         public TranscriptionStartedMessage(
             string transcriptionLocation,
             string jobName,
-            string locale,
+            IEnumerable<string> locales,
             bool usesCustomModel,
             IEnumerable<AudioFileInfo> audioFileInfos,
             int pollingCounter,
@@ -23,7 +23,7 @@ namespace Connector
         {
             this.TranscriptionLocation = transcriptionLocation;
             this.JobName = jobName;
-            this.Locale = locale;
+            this.Locales = locales;
             this.UsesCustomModel = usesCustomModel;
             this.AudioFileInfos = audioFileInfos;
             this.PollingCounter = pollingCounter;
@@ -34,7 +34,7 @@ namespace Connector
 
         public string JobName { get; set; }
 
-        public string Locale { get; set; }
+        public IEnumerable<string> Locales { get; set; }
 
         public bool UsesCustomModel { get; set; }
 
