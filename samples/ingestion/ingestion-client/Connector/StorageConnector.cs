@@ -104,6 +104,19 @@ namespace Connector
             return data;
         }
 
+        public Uri GetFullBlobUrl(string containerName, string blobName)
+        {
+            var containerClient = this.blobServiceClient.GetBlobContainerClient(containerName);
+            var blobClient = containerClient.GetBlobClient(blobName);
+            return blobClient.Uri;
+        }
+
+        public Uri GetFullContainerUrl(string containerName)
+        {
+            var containerClient = this.blobServiceClient.GetBlobContainerClient(containerName);
+            return containerClient.Uri;
+        }
+
         public async Task<byte[]> DownloadFileFromContainer(string containerName, string blobName)
         {
             var containerClient = this.blobServiceClient.GetBlobContainerClient(containerName);

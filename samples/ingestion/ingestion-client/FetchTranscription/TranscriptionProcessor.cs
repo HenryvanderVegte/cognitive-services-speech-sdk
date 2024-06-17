@@ -37,6 +37,8 @@ namespace FetchTranscription
 
         private static readonly ServiceBusSender FetchServiceBusSender = FetchServiceBusClient.CreateSender(ServiceBusConnectionStringProperties.Parse(FetchTranscriptionEnvironmentVariables.FetchTranscriptionServiceBusConnectionString).EntityPath);
 
+        private static readonly HttpClient HttpClientInstance = new HttpClient();
+
         private readonly IServiceProvider serviceProvider;
 
         private readonly IngestionClientDbContext databaseContext;
@@ -325,7 +327,7 @@ namespace FetchTranscription
         {
             log.LogInformation($"Got succeeded transcription for job {jobName}");
 
-            var transcriptionAnalyticsOrchestrator = new TranscriptionAnalyticsOrchestrator(serviceBusMessage.Locale, log);
+            var transcriptionAnalyticsOrchestrator = new TranscriptionAnalyticsOrchestrator(HttpClientInstance, StorageConnectorInstance, serviceBusMessage.Locale, log);
             var transcriptionAnalyticsJobStatus = await transcriptionAnalyticsOrchestrator.GetTranscriptionAnalyticsJobsStatusAsync(serviceBusMessage).ConfigureAwait(false);
             if (transcriptionAnalyticsJobStatus == TranscriptionAnalyticsJobStatus.Running)
             {

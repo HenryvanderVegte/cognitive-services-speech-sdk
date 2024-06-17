@@ -246,6 +246,8 @@
         "HtmlResultOutputContainer": "html-result-output",
         "ErrorReportOutputContainer": "error-report",
         "ConsolidatedFilesOutputContainer": "consolidated-files",
+        "AzureOpenAIInputContainer": "aoai-input",
+        "AzureOpenAITargetContainer": "aoai-target",
         "CreateHtmlResultFile": false,
         "CreateConsolidatedOutputFiles": false,
         "TimerBasedExecution": true,
@@ -259,6 +261,7 @@
         "InstanceId": "[parameters('DeploymentId')]",
         "StorageAccountName": "[parameters('StorageAccount')]",
         "UseSqlDatabase": "[and(not(equals(parameters('SqlAdministratorLogin'),'')), not(equals(parameters('SqlAdministratorLoginPassword'),'')))]",
+        "AzureOpenAIRequested": "[and(not(equals(parameters('AzureOpenAIKey'),'')), not(equals(parameters('AzureOpenAIEndpoint'),'')))]",
         "SqlServerName": "[concat('sqlserver', toLower(variables('InstanceId')))]",
         "DatabaseName": "[concat('Database-', toLower(variables('InstanceId')))]",
         "ServiceBusName": "[concat('ServiceBus-', variables('InstanceId'))]",
@@ -789,6 +792,63 @@
             }
         },
         {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "condition": "[variables('AzureOpenAIRequested')]",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('StorageAccountName'), '/default/', variables('AzureOpenAIInputContainer'))]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('StorageAccountName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccountName'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "condition": "[variables('AzureOpenAIRequested')]",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('StorageAccountName'), '/default/', variables('AzureOpenAITargetContainer'))]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('StorageAccountName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccountName'))]"
+            ],
+            "properties":
+            {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "condition": "[variables('AzureOpenAIRequested')]",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('StorageAccountName'), '/default/', variables('AzureOpenAIInputContainer'))]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('StorageAccountName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccountName'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "condition": "[variables('AzureOpenAIRequested')]",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('StorageAccountName'), '/default/', variables('AzureOpenAITargetContainer'))]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('StorageAccountName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccountName'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
             "name": "[variables('EventGridSystemTopicName')]",
             "type": "Microsoft.EventGrid/systemTopics",
             "apiVersion": "2020-04-01-preview",
@@ -980,6 +1040,11 @@
                 "PiiRedactionSetting": "[parameters('PiiRedaction')]",
                 "SentimentAnalysisSetting": "[parameters('SentimentAnalysis')]",
                 "AudioInputContainer": "[variables('AudioInputContainer')]",
+                "AzureOpenAIInputContainer": "[variables('AzureOpenAIInputContainer')]",
+                "AzureOpenAITargetContainer": "[variables('AzureOpenAITargetContainer')]",
+                "AzureOpenAIKey": "[parameters('AzureOpenAIKey')]",
+                "AzureOpenAIEndpoint": "[parameters('AzureOpenAIEndpoint')]",
+                "AzureOpenAIModelName": "[parameters('AzureOpenAIModelName')]",
                 "AzureServiceBus": "[listKeys(resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', variables('ServiceBusName'), 'RootManageSharedAccessKey'), '2017-04-01').primaryConnectionString]",
                 "AzureSpeechServicesKey": "[concat('@Microsoft.KeyVault(VaultName=', variables('KeyVaultName'), ';SecretName=', variables('AzureSpeechServicesKeySecretName'), ')')]",
                 "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('StorageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=', variables('EndpointSuffix'))]",
